@@ -75,8 +75,8 @@ async function fetchManifest() {
 }
 
 // ── Markdown 產生 ───────────────────────────────────────────────────────────
-function pad(n) {
-  return String(n).padStart(3, '0'); // 最大 673，三位數補零方便排序
+function epId(n) {
+  return String(n); // 與網站一致，不補零 (EP1, EP2, …, EP673)
 }
 
 // YAML frontmatter 字串值跳脫（包雙引號，跳脫內部雙引號與反斜線）
@@ -143,7 +143,7 @@ async function main() {
 
   let written = 0, skipped = 0;
   for (const ep of episodes) {
-    const file = path.join(opts.out, `EP${pad(ep.n)}.md`);
+    const file = path.join(opts.out, `EP${epId(ep.n)}.md`);
     if (!opts.force && fs.existsSync(file)) { skipped++; continue; }
     fs.writeFileSync(file, toMarkdown(ep), 'utf8');
     written++;
@@ -155,7 +155,7 @@ async function main() {
   indexLines.push(`共 ${episodes.length} 集。`, '', '| 集數 | 日期 | 標題 |', '| ---: | --- | --- |');
   for (const ep of episodes) {
     const title = (ep.t || '').replace(/\|/g, '\\|');
-    indexLines.push(`| [EP${ep.n}](EP${pad(ep.n)}.md) | ${ep.d || ''} | ${title} |`);
+    indexLines.push(`| [EP${ep.n}](EP${epId(ep.n)}.md) | ${ep.d || ''} | ${title} |`);
   }
   fs.writeFileSync(path.join(opts.out, 'README.md'), indexLines.join('\n') + '\n', 'utf8');
 
