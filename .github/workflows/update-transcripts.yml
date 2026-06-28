@@ -1,0 +1,44 @@
+name: 更新逐字稿
+
+# 定期抓取 whatmkreallysaid.com 的最新逐字稿，有新集數就自動 commit。
+on:
+  schedule:
+    # 每週一、四 02:00 UTC（股癌約每週兩集，抓兩次較不會漏）
+    - cron: '0 2 * * 1,4'
+  workflow_dispatch:        # 也可在 Actions 頁面手動觸發
+
+permissions:
+  contents: write
+
+# 避免多個排程同時跑造成 push 衝突
+concurrency:
+  group: update-transcripts
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: 抓取逐字稿
+        run: node scrape.js
+
+      - name: 有變更則 commit 並 push
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "沒有新集數，結束。"
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          count=$(ls transcripts/EP*.md 2>/dev/null | wc -l | tr -d ' ')
+          git commit -m "自動更新逐字稿（共 ${count} 集）"
+          git push

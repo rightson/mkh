@@ -41,6 +41,16 @@ node scrape.js --force         # 即使檔案已存在也重新覆寫
 
 預設會略過已存在的檔案（增量更新）；要全部重抓請加 `--force`。
 
+## 自動更新
+
+`.github/workflows/update-transcripts.yml` 會在每週一、四（UTC）自動跑 `scrape.js`，
+有新集數就以 `github-actions[bot]` 身分 commit 並 push；也可在 GitHub 的 Actions 頁面
+手動觸發。需要不同頻率時，調整 workflow 內的 `cron` 即可。
+
+> 自動 commit 需要 workflow 具備 `contents: write` 權限（已於檔內設定）。若 push 被擋，
+> 請至 repo 的 **Settings → Actions → General → Workflow permissions** 開啟
+> 「Read and write permissions」。
+
 ## 免責聲明
 
 逐字稿原始內容著作權屬《股癌》Podcast 製作人及相關權利人所有，本專案僅供學習與
