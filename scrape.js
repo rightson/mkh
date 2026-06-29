@@ -76,7 +76,7 @@ async function fetchManifest() {
 
 // ── Markdown 產生 ───────────────────────────────────────────────────────────
 function epId(n) {
-  return String(n); // 與網站一致，不補零 (EP1, EP2, …, EP673)
+  return String(n).padStart(3, '0'); // 補零至三碼 (EP001 … EP674)，方便依檔名排序
 }
 
 // YAML frontmatter 字串值跳脫（包雙引號，跳脫內部雙引號與反斜線）

@@ -35,8 +35,8 @@ node scrape.js --force         # 即使檔案已存在也重新覆寫
 
 ## 輸出
 
-- `transcripts/EP1.md` … `transcripts/EP674.md`：每集一份，含 YAML frontmatter
-  （集數、標題、日期、來源網址）＋摘要＋逐字稿。檔名與網站一致（不補零）。
+- `transcripts/EP001.md` … `transcripts/EP674.md`：每集一份，含 YAML frontmatter
+  （集數、標題、日期、來源網址）＋摘要＋逐字稿。集數補零至三碼，方便依檔名排序。
 - `transcripts/README.md`：自動產生的索引表（集數、日期、標題、連結）。
 
 預設會略過已存在的檔案（增量更新）；要全部重抓請加 `--force`。
