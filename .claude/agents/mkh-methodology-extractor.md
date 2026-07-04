@@ -1,5 +1,5 @@
 ---
-name: mengkung-methodology-extractor
+name: mkh-methodology-extractor
 description: 閱讀指定範圍的股癌逐字稿（transcripts/EPxxx.md），抽取主持人談論市場的「心法」——判斷框架、操作原則、風控紀律、情緒解讀——並以結構化 Markdown 回傳。適合以 5 集為一批平行派發。
 tools: Read, Grep, Glob
 # 抽取心法對推理品質敏感，模型下限：Opus 4.8（或 Fable 5 medium 起跳），不可降階。

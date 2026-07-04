@@ -1,4 +1,4 @@
-# 謝孟恭方法論 · MengKung Methodology
+# 謝孟恭方法論 · Meng Kung Methodology
 
 > **投資核心方法論**，歸屬於《股癌》Podcast 唯一主持人 **謝孟恭** 本人
 > （他多次強調「股癌」是節目名、不是他的名字）。
@@ -26,7 +26,7 @@
 ## 分類框架
 
 抽取與整理都依同一套五大分類（詳見
-[`.claude/skills/mengkung-methodology/SKILL.md`](.claude/skills/mengkung-methodology/SKILL.md)）：
+[`.claude/skills/mkh-methodology/SKILL.md`](.claude/skills/mkh-methodology/SKILL.md)）：
 
 | 分類 | 談的是 |
 | --- | --- |
@@ -42,13 +42,13 @@
 ## 方法論是怎麼長出來的
 
 ```
-transcripts/EPxxx.md ──►  mengkung-methodology-extractor（平行精讀，5 集一批）
+transcripts/EPxxx.md ──►  mkh-methodology-extractor（平行精讀，5 集一批）
                               ├─►  methodology/<時期>.md   （分時期方法論）
                               └─►  methodology/核心方法論.md（跨期淬煉的核心）
 ```
 
-- 抽取流程與品質標準：[`.claude/skills/mengkung-methodology/SKILL.md`](.claude/skills/mengkung-methodology/SKILL.md)
-- 逐集精讀的 agent 定義：[`.claude/agents/mengkung-methodology-extractor.md`](.claude/agents/mengkung-methodology-extractor.md)
+- 抽取流程與品質標準：[`.claude/skills/mkh-methodology/SKILL.md`](.claude/skills/mkh-methodology/SKILL.md)
+- 逐集精讀的 agent 定義：[`.claude/agents/mkh-methodology-extractor.md`](.claude/agents/mkh-methodology-extractor.md)
 
 > 抽取心法對推理品質敏感，故 extractor 的模型下限訂為 **Opus 4.8 / Fable 5（medium）起跳**，不降階。
 

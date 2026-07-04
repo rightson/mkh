@@ -1,7 +1,7 @@
 # 謝孟恭市場方法論 2021春夏（EP126–EP175，2021-03-27 ~ 2021-09-15）
 
 > 依據 50 集逐字稿抽取主持人（謝孟恭）談論市場的心法整理而成。心法均附集數出處，
-> 引號內為其原話關鍵詞。抽取流程見 `../.claude/skills/mengkung-methodology/SKILL.md`。
+> 引號內為其原話關鍵詞。抽取流程見 `../.claude/skills/mkh-methodology/SKILL.md`。
 
 ## 時期背景
 
