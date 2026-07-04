@@ -1,8 +1,8 @@
-# 股癌市場方法論（分時期）
+# 謝孟恭市場方法論（分時期）
 
 從 `transcripts/` 逐字稿抽取主持人談論市場的心法，以**半年**為一期整理成方法論文件。
-由最近的時期往回逐期補齊。抽取流程見 `.claude/skills/gooaye-methodology/SKILL.md`，
-批次抽取 agent 定義見 `.claude/agents/gooaye-methodology-extractor.md`。
+由最近的時期往回逐期補齊。抽取流程見 `.claude/skills/mkh-methodology/SKILL.md`，
+批次抽取 agent 定義見 `.claude/agents/mkh-methodology-extractor.md`。
 
 > 📘 想先看跨越全部時期、淬煉出的長期骨幹原則，讀 **[核心方法論](核心方法論.md)**。
 > 下方分期文件則呈現他的方法**如何隨市況演變**。
