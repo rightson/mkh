@@ -58,19 +58,21 @@ transcripts/EPxxx.md ──►  mkh-methodology-extractor（平行精讀，5 集
 ## 配角：逐字稿抓取管線
 
 方法論要持續更新，就得有人不斷把最新一集的逐字稿餵進來。這件事交給一條會**透過 GitHub
-Action 持續運行**的兩段式管線——雖是配角，但不能不在：
+Action 持續運行**的兩段式管線——雖是配角，但不能不在。來源階層依「一切以原始節目為準」
+排序：**第一手音訊為主、逐字稿站為輔**：
 
-1. **`scrape.js`（主抓）**——抓 [whatmkreallysaid.com](https://whatmkreallysaid.com/)
-   逐字稿站的完整逐字稿。
-2. **`fallback.js`（備援）**——逐字稿站還沒收錄最新一集時，改從 Podcast RSS
-   （Apple／Spotify 索引的同一份來源）補上：有設定轉錄後端就下載音檔轉逐字稿，
-   否則先寫節目摘要暫存，等逐字稿站補上後自動覆蓋。
+1. **`scrape.js`（主抓）**——從 Podcast RSS（Apple／Spotify 索引的同一份 SoundOn 來源）
+   取最新一集的**第一手音檔**：有設定轉錄後端就下載音檔轉逐字稿（第一手來源），
+   否則先寫節目摘要暫存，等有後端或備援補上後升級。
+2. **`fallback.js`（備援）**——主抓拿不到時（沒設轉錄後端、或音檔超過 25MB 上限），
+   改抓 [whatmkreallysaid.com](https://whatmkreallysaid.com/) 逐字稿站（第三方二手）的
+   完整逐字稿補齊；已成功轉錄的第一手音訊版不會被覆蓋。
 
 細節（用法、frontmatter、如何啟用音檔轉錄）見 **[docs/scraper.md](docs/scraper.md)**。
 
 ```bash
-node scrape.js       # 主抓：逐字稿站
-node fallback.js     # 備援：Podcast 補最新缺集
+node scrape.js       # 主抓：Podcast 第一手音訊
+node fallback.js     # 備援：逐字稿站補齊缺集
 ```
 
 兩支程式零外部依賴，只需 Node.js 18+。自動更新由
