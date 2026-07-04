@@ -84,6 +84,18 @@ function yamlStr(s) {
   return '"' + String(s == null ? '' : s).replace(/\\/g, '\\\\').replace(/"/g, '\\"') + '"';
 }
 
+// 既有檔案若是 fallback.js 寫的「備援 stub」（frontmatter 標 podcast-fallback），
+// 代表當時逐字稿站還沒收錄、只有節目摘要或音檔轉錄；此時即使非 --force 也要覆蓋，
+// 用逐字稿站的正式版取代備援版。
+function isFallbackStub(file) {
+  try {
+    const head = fs.readFileSync(file, 'utf8').slice(0, 400);
+    return /source_type:\s*podcast-fallback/.test(head);
+  } catch (_) {
+    return false;
+  }
+}
+
 function toMarkdown(ep) {
   const epUrl = `${BASE}/episode.html?file=EP${ep.n}`;
   const lines = [];
@@ -144,7 +156,8 @@ async function main() {
   let written = 0, skipped = 0;
   for (const ep of episodes) {
     const file = path.join(opts.out, `EP${epId(ep.n)}.md`);
-    if (!opts.force && fs.existsSync(file)) { skipped++; continue; }
+    // 略過已存在的正式檔（增量更新）；但備援 stub 一律用正式版覆蓋。
+    if (!opts.force && fs.existsSync(file) && !isFallbackStub(file)) { skipped++; continue; }
     fs.writeFileSync(file, toMarkdown(ep), 'utf8');
     written++;
   }
