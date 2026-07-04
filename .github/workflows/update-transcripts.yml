@@ -8,8 +8,9 @@ name: 更新逐字稿
 #      並升級待補 stub；已成功轉錄的第一手音訊版不覆蓋。
 on:
   schedule:
-    # 每週一、四 02:00 UTC（股癌約每週兩集，抓兩次較不會漏）
-    - cron: '0 2 * * 1,4'
+    # 台灣時間週三、週六晚 22:00（= 14:00 UTC；股癌約每週兩集，抓兩次較不會漏）
+    # 註：排程只會依 default branch(main) 上的設定執行，改動需合併進 main 才生效。
+    - cron: '0 14 * * 3,6'
   workflow_dispatch:        # 也可在 Actions 頁面手動觸發
 
 permissions:
