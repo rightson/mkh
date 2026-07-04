@@ -1,6 +1,8 @@
 name: 更新逐字稿
 
-# 定期抓取 whatmkreallysaid.com 的最新逐字稿，有新集數就自動 commit。
+# 定期補齊逐字稿資料，有新集數就自動 commit。
+# 兩段式：先抓逐字稿站（scrape.js），逐字稿站還沒收錄的最新集數再用 Podcast 備援
+# （fallback.js：Apple/Spotify 索引的同一份 RSS→節目摘要，設定 secret 時可轉錄音檔）。
 on:
   schedule:
     # 每週一、四 02:00 UTC（股癌約每週兩集，抓兩次較不會漏）
@@ -27,8 +29,18 @@ jobs:
         with:
           node-version: '22'
 
-      - name: 抓取逐字稿
+      - name: 主抓——逐字稿站
         run: node scrape.js
+
+      - name: 備援——Podcast 補最新缺集
+        # 逐字稿站落後時，用 RSS 補上最新單集（預設寫節目摘要 stub；
+        # 設定 TRANSCRIBE_API_KEY 後改為下載音檔轉逐字稿）。失敗不擋整個流程。
+        continue-on-error: true
+        env:
+          TRANSCRIBE_API_KEY: ${{ secrets.TRANSCRIBE_API_KEY }}
+          TRANSCRIBE_API_URL: ${{ secrets.TRANSCRIBE_API_URL }}
+          TRANSCRIBE_MODEL: ${{ secrets.TRANSCRIBE_MODEL }}
+        run: node fallback.js
 
       - name: 有變更則 commit 並 push
         run: |

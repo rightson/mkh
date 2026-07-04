@@ -1,57 +1,82 @@
-# 股癌逐字稿抓取 (gooaye-transcripts)
+# 股癌方法論 · Gooaye Methodology
 
-抓取 [whatmkreallysaid.com](https://whatmkreallysaid.com/)（股癌 Podcast 非官方逐字稿站）
-的所有逐字稿，每一集輸出成一份獨立的 Markdown 檔。
+> 《股癌》Podcast 唯一主持人 **謝孟恭** 的投資核心方法論——
+> 從節目每一集的逐字稿裡，抽出他反覆使用、跨個股跨時間的「心法」，
+> 整理成一套可回查、可對照的方法論文件。
 
-## 運作原理
+這個 repo 的主角是**方法論**，不是程式。程式（逐字稿抓取管線）只是把原料餵進來的
+[配角](docs/scraper.md)。若你只想讀方法論，往下看 [怎麼讀](#怎麼讀) 即可。
 
-該網站雖然是純前端 (JS) 渲染，但**並非**每集一支 API。整站的搜尋／瀏覽都建立在
-一份單一資料包之上：頁面載入時會抓取 brotli 壓縮的 `/transcripts.json.br`，
-裡面就是所有集數的逐字稿 JSON 陣列。
+> ⚠️ 這是**聽眾自行整理**的非官方筆記，不是謝孟恭本人或《股癌》的官方產出，也**不是投資建議**。
+> 心法忠於逐字稿原意，但逐字稿為語音轉文字、偶有誤差，一切以原始節目為準。
 
-所以本程式直接抓這份官方資料包、解壓縮後逐集輸出，不需要 headless browser，
-也只送出一個請求，對站方最友善。
+## 怎麼讀
 
-資料欄位（每集）：
+- **[📘 核心方法論](methodology/核心方法論.md)**——先讀這篇。跨越全部 ~675 集、
+  淬煉出他長期不變的骨幹原則（依五大分類），是整個 repo 的入口。
+- **[🗂 分時期方法論](methodology/)**——想看他的方法**如何隨市況演變**（創始期的摸索、
+  2022 熊市的風控、2023 起的 AI 大多頭…），讀 `methodology/` 底下的分期文件。
+  每期一份，附時期背景、核心心法、該期特有戰術、自我檢討錄與金句。進度表見
+  [`methodology/README.md`](methodology/README.md)。
+- **[🎙 逐字稿原文](transcripts/)**——想查某條心法的上下文，每條都附集數出處
+  （如 `EP675, EP662`），可回 `transcripts/EPxxx.md` 對照原話。
 
-| 欄位 | 說明 |
+## 分類框架
+
+抽取與整理都依同一套五大分類（詳見
+[`.claude/skills/gooaye-methodology/SKILL.md`](.claude/skills/gooaye-methodology/SKILL.md)）：
+
+| 分類 | 談的是 |
 | --- | --- |
-| `n` | 集數 |
-| `t` | 標題 |
-| `d` | 日期 (ISO，少數集數缺) |
-| `dt` | 日期顯示字串 |
-| `desc` | 摘要 |
-| `tx` | 逐字稿全文 |
+| **市場判斷框架** | 如何解讀盤面：量價、族群輪動、外資動向、財報季、總經事件、多空強弱的依據 |
+| **操作原則** | 進出場邏輯、加減碼、追高／攤平的條件、換股（轉倉）的時機與紀律 |
+| **風控與倉位** | 停損觀念、槓桿態度、現金水位、部位大小的思考 |
+| **情緒與心理** | 散戶常見錯誤、自己犯過的錯與檢討、對 FOMO／恐慌的處理 |
+| **資訊處理** | 怎麼看新聞、研究報告、市場共識與雜訊的分辨 |
 
-## 使用方式
+原則是「只收可跨個股、跨時間重複使用的思考方式」，不收單純的行情播報；業配與閒聊不入文，
+**自我檢討與認錯是最高價值的內容，優先保留**。
 
-需要 Node.js 18+（用到內建 `fetch` 與 `zlib.brotliDecompressSync`，**零外部依賴**）。
+## 方法論是怎麼長出來的
 
-```bash
-node scrape.js                 # 輸出到 ./transcripts
-node scrape.js --out ./out     # 自訂輸出目錄
-node scrape.js --force         # 即使檔案已存在也重新覆寫
+```
+transcripts/EPxxx.md ──►  gooaye-methodology-extractor（平行精讀，5 集一批）
+                              ├─►  methodology/<時期>.md   （分時期方法論）
+                              └─►  methodology/核心方法論.md（跨期淬煉的核心）
 ```
 
-## 輸出
+- 抽取流程與品質標準：[`.claude/skills/gooaye-methodology/SKILL.md`](.claude/skills/gooaye-methodology/SKILL.md)
+- 逐集精讀的 agent 定義：[`.claude/agents/gooaye-methodology-extractor.md`](.claude/agents/gooaye-methodology-extractor.md)
 
-- `transcripts/EP001.md` … `transcripts/EP674.md`：每集一份，含 YAML frontmatter
-  （集數、標題、日期、來源網址）＋摘要＋逐字稿。集數補零至三碼，方便依檔名排序。
-- `transcripts/README.md`：自動產生的索引表（集數、日期、標題、連結）。
+> 抽取心法對推理品質敏感，故 extractor 的模型下限訂為 **Opus 4.8 / Fable 5（medium）起跳**，不降階。
 
-預設會略過已存在的檔案（增量更新）；要全部重抓請加 `--force`。
+新時期完成後，會把它與前一期對照，在「時期背景」點出方法的演變（多頭追動能 vs 空頭保守），
+再更新 [`methodology/README.md`](methodology/README.md) 的進度表。
 
-## 自動更新
+## 配角：逐字稿抓取管線
 
-`.github/workflows/update-transcripts.yml` 會在每週一、四（UTC）自動跑 `scrape.js`，
-有新集數就以 `github-actions[bot]` 身分 commit 並 push；也可在 GitHub 的 Actions 頁面
-手動觸發。需要不同頻率時，調整 workflow 內的 `cron` 即可。
+方法論要持續更新，就得有人不斷把最新一集的逐字稿餵進來。這件事交給一條會**透過 GitHub
+Action 持續運行**的兩段式管線——雖是配角，但不能不在：
 
-> 自動 commit 需要 workflow 具備 `contents: write` 權限（已於檔內設定）。若 push 被擋，
-> 請至 repo 的 **Settings → Actions → General → Workflow permissions** 開啟
-> 「Read and write permissions」。
+1. **`scrape.js`（主抓）**——抓 [whatmkreallysaid.com](https://whatmkreallysaid.com/)
+   逐字稿站的完整逐字稿。
+2. **`fallback.js`（備援）**——逐字稿站還沒收錄最新一集時，改從 Podcast RSS
+   （Apple／Spotify 索引的同一份來源）補上：有設定轉錄後端就下載音檔轉逐字稿，
+   否則先寫節目摘要暫存，等逐字稿站補上後自動覆蓋。
+
+細節（用法、frontmatter、如何啟用音檔轉錄）見 **[docs/scraper.md](docs/scraper.md)**。
+
+```bash
+node scrape.js       # 主抓：逐字稿站
+node fallback.js     # 備援：Podcast 補最新缺集
+```
+
+兩支程式零外部依賴，只需 Node.js 18+。自動更新由
+[`.github/workflows/update-transcripts.yml`](.github/workflows/update-transcripts.yml)
+每週一、四排程執行。
 
 ## 免責聲明
 
-逐字稿原始內容著作權屬《股癌》Podcast 製作人及相關權利人所有，本專案僅供學習與
-技術交流，非商業用途。正確內容請以原始音訊為準。
+逐字稿與節目內容著作權屬《股癌》Podcast 製作人謝孟恭及相關權利人所有。本專案為聽眾的
+學習筆記，僅供學習與技術交流、非商業用途，且**不構成任何投資建議**。方法論為整理者對
+節目內容的理解，可能有誤讀；正確內容請以原始節目為準。

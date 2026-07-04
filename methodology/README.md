@@ -4,6 +4,9 @@
 由最近的時期往回逐期補齊。抽取流程見 `.claude/skills/gooaye-methodology/SKILL.md`，
 批次抽取 agent 定義見 `.claude/agents/gooaye-methodology-extractor.md`。
 
+> 📘 想先看跨越全部時期、淬煉出的長期骨幹原則，讀 **[核心方法論](核心方法論.md)**。
+> 下方分期文件則呈現他的方法**如何隨市況演變**。
+
 ## 分期與進度
 
 | 時期 | 集數範圍 | 日期範圍 | 狀態 | 文件 |
