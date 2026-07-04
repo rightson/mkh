@@ -1,14 +1,16 @@
-# 股癌方法論 · Gooaye Methodology
+# 謝孟恭方法論 · MengKung Methodology
 
-> 《股癌》Podcast 唯一主持人 **謝孟恭** 的投資核心方法論——
-> 從節目每一集的逐字稿裡，抽出他反覆使用、跨個股跨時間的「心法」，
-> 整理成一套可回查、可對照的方法論文件。
+> **投資核心方法論**，歸屬於《股癌》Podcast 唯一主持人 **謝孟恭** 本人
+> （他多次強調「股癌」是節目名、不是他的名字）。
+>
+> **來源是《股癌》節目**，但內容並非他直接寫下的條列——而是把節目每一集的逐字稿，
+> 經 AI **抽取 → 萃取 → 跨期綜合**後**間接推導**出的心法整理，可回查、可對照。
 
 這個 repo 的主角是**方法論**，不是程式。程式（逐字稿抓取管線）只是把原料餵進來的
 [配角](docs/scraper.md)。若你只想讀方法論，往下看 [怎麼讀](#怎麼讀) 即可。
 
-> ⚠️ 這是**聽眾自行整理**的非官方筆記，不是謝孟恭本人或《股癌》的官方產出，也**不是投資建議**。
-> 心法忠於逐字稿原意，但逐字稿為語音轉文字、偶有誤差，一切以原始節目為準。
+> ⚠️ **聽眾自行整理**的非官方二次詮釋，**不是**謝孟恭本人或《股癌》的官方產出，也**不是投資建議**。
+> 心法忠於逐字稿原意，但屬間接推導、逐字稿又是語音轉文字偶有誤差，一切以原始節目為準。
 
 ## 怎麼讀
 
@@ -24,7 +26,7 @@
 ## 分類框架
 
 抽取與整理都依同一套五大分類（詳見
-[`.claude/skills/gooaye-methodology/SKILL.md`](.claude/skills/gooaye-methodology/SKILL.md)）：
+[`.claude/skills/mengkung-methodology/SKILL.md`](.claude/skills/mengkung-methodology/SKILL.md)）：
 
 | 分類 | 談的是 |
 | --- | --- |
@@ -40,13 +42,13 @@
 ## 方法論是怎麼長出來的
 
 ```
-transcripts/EPxxx.md ──►  gooaye-methodology-extractor（平行精讀，5 集一批）
+transcripts/EPxxx.md ──►  mengkung-methodology-extractor（平行精讀，5 集一批）
                               ├─►  methodology/<時期>.md   （分時期方法論）
                               └─►  methodology/核心方法論.md（跨期淬煉的核心）
 ```
 
-- 抽取流程與品質標準：[`.claude/skills/gooaye-methodology/SKILL.md`](.claude/skills/gooaye-methodology/SKILL.md)
-- 逐集精讀的 agent 定義：[`.claude/agents/gooaye-methodology-extractor.md`](.claude/agents/gooaye-methodology-extractor.md)
+- 抽取流程與品質標準：[`.claude/skills/mengkung-methodology/SKILL.md`](.claude/skills/mengkung-methodology/SKILL.md)
+- 逐集精讀的 agent 定義：[`.claude/agents/mengkung-methodology-extractor.md`](.claude/agents/mengkung-methodology-extractor.md)
 
 > 抽取心法對推理品質敏感，故 extractor 的模型下限訂為 **Opus 4.8 / Fable 5（medium）起跳**，不降階。
 
