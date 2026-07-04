@@ -48,6 +48,8 @@ transcripts/EPxxx.md ──►  gooaye-methodology-extractor（平行精讀，5 
 - 抽取流程與品質標準：[`.claude/skills/gooaye-methodology/SKILL.md`](.claude/skills/gooaye-methodology/SKILL.md)
 - 逐集精讀的 agent 定義：[`.claude/agents/gooaye-methodology-extractor.md`](.claude/agents/gooaye-methodology-extractor.md)
 
+> 抽取心法對推理品質敏感，故 extractor 的模型下限訂為 **Opus 4.8 / Fable 5（medium）起跳**，不降階。
+
 新時期完成後，會把它與前一期對照，在「時期背景」點出方法的演變（多頭追動能 vs 空頭保守），
 再更新 [`methodology/README.md`](methodology/README.md) 的進度表。
 
