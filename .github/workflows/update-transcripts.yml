@@ -1,16 +1,17 @@
 name: 更新逐字稿
 
-# 定期補齊逐字稿資料，有新集數就自動 commit。
-# 兩段式（來源階層：第一手音訊為主、逐字稿站為輔）：
-#   ① 主抓 scrape.js：Podcast 第一手音訊（Apple/Spotify 索引的同一份 RSS；
-#      設定 TRANSCRIBE_API_KEY 時下載音檔轉逐字稿，否則寫節目摘要 stub）。
-#   ② 備援 fallback.js：逐字稿站 whatmkreallysaid.com，補齊主抓拿不到的集數，
-#      並升級待補 stub；已成功轉錄的第一手音訊版不覆蓋。
+# 定期補齊逐字稿資料，有新集數就自動 commit。兩段式「搶快 → 校對」品質接力：
+#   ① scrape.js：Podcast 第一手音訊搶快——節目上架當晚先轉出臨時逐字稿。
+#   ② fallback.js：逐字稿站 whatmkreallysaid.com——約 1~2 天後發布時，用網站版
+#      校對臨時版以提質，並補齊音訊拿不到（無後端／音檔超 25MB）的集數。
+# 兩支每次都跑（皆為冪等）：音訊之夜主要由 ① 出臨時稿、校對之夜主要由 ② 覆蓋提質。
 on:
   schedule:
-    # 台灣時間週三、週六晚 22:00（= 14:00 UTC；股癌約每週兩集，抓兩次較不會漏）
-    # 註：排程只會依 default branch(main) 上的設定執行，改動需合併進 main 才生效。
+    # 音訊搶快：台灣週三、週六晚 22:00（= 14:00 UTC），節目上架就先轉臨時稿。
     - cron: '0 14 * * 3,6'
+    # 網站校對：台灣週一、週五晚 22:00（= 14:00 UTC），約晚 1~2 天，逐字稿站發布後校對提質。
+    - cron: '0 14 * * 1,5'
+    # 註：排程只會依 default branch(main) 上的設定執行，改動需合併進 main 才生效。
   workflow_dispatch:        # 也可在 Actions 頁面手動觸發
 
 permissions:
@@ -33,10 +34,10 @@ jobs:
         with:
           node-version: '22'
 
-      - name: 主抓——Podcast 第一手音訊
+      - name: 搶快——Podcast 第一手音訊
         # 從 RSS 取最新單集，設定 TRANSCRIBE_API_KEY 後下載音檔轉逐字稿，
-        # 否則寫節目摘要 stub（待備援或日後轉錄升級）。失敗不擋整個流程，
-        # 讓備援仍能補上。
+        # 否則寫節目摘要 stub（待校對或日後轉錄升級）。失敗不擋整個流程，
+        # 讓校對步驟仍能補上。
         continue-on-error: true
         env:
           TRANSCRIBE_API_KEY: ${{ secrets.TRANSCRIBE_API_KEY }}
@@ -45,7 +46,7 @@ jobs:
           TRANSCRIBE_MAX_MB: ${{ secrets.TRANSCRIBE_MAX_MB }}
         run: node scrape.js
 
-      - name: 備援——逐字稿站補齊
+      - name: 校對——逐字稿站覆蓋提質
         run: node fallback.js
 
       - name: 有變更則 commit 並 push

@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 /*
- * 股癌逐字稿「備援」程式 — 逐字稿網站 (fallback: whatmkreallysaid.com)
+ * 股癌逐字稿「校對」程式 — 逐字稿網站 (fallback: whatmkreallysaid.com)
  *
- * 主抓法是 scrape.js（Podcast 第一手音訊）。但第一手音訊要能轉錄，得有轉錄後端，
- * 且單集音檔常超過 Whisper 的 25MB 上限——這些情況主抓只會留下待補 stub。
- * 這支程式就是備援：從第三方逐字稿站 whatmkreallysaid.com 補齊主抓拿不到的集數。
+ * 搭配 scrape.js（Podcast 第一手音訊搶快）運作，形成「搶快 → 校對」品質接力：
+ * 音訊在節目上架當晚就先轉出臨時逐字稿（搶快）；本程式則在 1~2 天後、逐字稿站
+ * whatmkreallysaid.com 發布該集時，用網站版「校對」臨時版以提高品質，並補齊音訊
+ * 拿不到（無轉錄後端／音檔超過 Whisper 25MB 上限而只有 stub）的集數。
  *
  * 網站本身是純前端 (JS) 渲染：頁面載入後會抓取一份單一的 brotli 壓縮資料包
  *   /transcripts.json.br
@@ -12,11 +13,12 @@
  * 因此最可靠、最有禮貌的抓法不是去 render 每一頁 HTML，而是直接抓這份官方資料包，
  * 解壓縮後把每一集輸出成一份獨立的 Markdown 檔。
  *
- * 覆蓋規則（尊重來源階層：第一手音訊為主）：
- *   - 本地沒有該集            → 用網站版補上（第三方二手來源）。
- *   - 本地是待補 stub          → 用網站版升級（比只有節目摘要好）。
- *   - 本地已是音訊轉錄／既有正式版 → 保留，不覆蓋（第一手音訊優先於第三方逐字稿）。
- *   - --force                  → 一律以網站版覆寫。
+ * 覆蓋規則（音訊搶快、網站校對提質）：
+ *   - 本地沒有該集                 → 用網站版補上。
+ *   - 本地是音訊搶快臨時版           → 用網站版校對覆蓋提質（source_type: podcast-audio，
+ *     （pending-audio stub 或 audio-transcribed 臨時轉錄皆是）。
+ *   - 本地已是網站校對版／既有正式版 → 保留，不重複覆蓋。
+ *   - --force                      → 一律以網站版覆寫。
  *
  * 資料格式 (每個 episode 物件)：
  *   n    : 集數 (number)
@@ -93,13 +95,13 @@ function yamlStr(s) {
   return '"' + String(s == null ? '' : s).replace(/\\/g, '\\\\').replace(/"/g, '\\"') + '"';
 }
 
-// 既有檔案是否只是「待補音檔的 stub」（主抓 scrape.js 在無法轉錄時留下的）。
-// 這種檔即使非 --force 也要用網站正式版升級；但已成功轉錄的第一手音訊版
-// （transcript_status: audio-transcribed）與既有正式版都保留、不覆蓋。
-function isPendingStub(file) {
+// 既有檔案是否為「音訊搶快的臨時版」（主抓 scrape.js 寫的 source_type: podcast-audio，
+// 含 pending-audio stub 與 audio-transcribed 臨時轉錄）。這種檔即使非 --force 也要用
+// 網站版校對覆蓋以提質；已是網站校對版（transcript-site）或既有正式版（無標記）則保留。
+function isProvisionalAudio(file) {
   try {
     const head = fs.readFileSync(file, 'utf8').slice(0, 400);
-    return /transcript_status:\s*pending-audio/.test(head);
+    return /source_type:\s*podcast-audio/.test(head);
   } catch (_) {
     return false;
   }
@@ -166,9 +168,9 @@ async function main() {
   let written = 0, skipped = 0;
   for (const ep of episodes) {
     const file = path.join(opts.out, `EP${epId(ep.n)}.md`);
-    // 補齊主抓拿不到的集數：只在「檔案不存在」或「是待補 stub」時寫入；
-    // 已成功轉錄的第一手音訊版與既有正式版都保留（除非 --force）。
-    if (!opts.force && fs.existsSync(file) && !isPendingStub(file)) { skipped++; continue; }
+    // 校對／補齊：只在「檔案不存在」或「是音訊搶快臨時版」時用網站版寫入；
+    // 已是網站校對版與既有正式版都保留（除非 --force）。
+    if (!opts.force && fs.existsSync(file) && !isProvisionalAudio(file)) { skipped++; continue; }
     fs.writeFileSync(file, toMarkdown(ep), 'utf8');
     written++;
   }
@@ -183,7 +185,7 @@ async function main() {
   }
   fs.writeFileSync(path.join(opts.out, 'README.md'), indexLines.join('\n') + '\n', 'utf8');
 
-  console.log(`✓ 備援完成：寫入 ${written} 集，略過 ${skipped} 集（已有第一手或正式版），輸出於 ${opts.out}`);
+  console.log(`✓ 校對完成：寫入 ${written} 集，略過 ${skipped} 集（已是網站校對版或既有正式版），輸出於 ${opts.out}`);
 }
 
 main().catch((err) => {
