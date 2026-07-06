@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 /*
- * 股癌逐字稿「主抓」程式 — Podcast 第一手音訊 (primary: podcast audio)
+ * 股癌逐字稿「搶快」程式 — Podcast 第一手音訊 (primary: podcast audio)
  *
- * 本專案奉「一切以原始節目為準」為圭臬，故來源階層以**第一手音訊**為主：
- * 謝孟恭的原音（《股癌》Podcast 的音檔）才是節目本身，whatmkreallysaid.com
- * 逐字稿站是第三方的二手轉錄，只作備援（見 fallback.js）。
+ * 本專案奉「一切以原始節目為準」為圭臬，故以**第一手音訊搶快**：謝孟恭的原音
+ * （《股癌》Podcast 音檔）在節目上架當晚就先轉出臨時逐字稿，讓重點能最快整理；
+ * 待第三方逐字稿站 whatmkreallysaid.com 於 1~2 天後發布，再由 fallback.js 用網站版
+ * 校對這份臨時稿以提高品質（「搶快 → 校對」品質接力）。
  *
  * 流程：
  *   1. 解析《股癌》的 Podcast RSS（Apple Podcasts 與 Spotify 都是索引同一份 RSS，
@@ -14,10 +15,10 @@
  *   3. 對這些缺集：
  *        - 若設定了語音轉文字後端（見下方環境變數），下載音檔 → 轉逐字稿 → 寫入，
  *          frontmatter 標 `source_type: podcast-audio`、`transcript_status: audio-transcribed`。
- *          此為第一手來源，備援（網站）不會覆蓋它。
+ *          此為搶快臨時版，待逐字稿站發布後由 fallback.js 用網站版校對覆蓋提質。
  *        - 否則，用 RSS 的節目摘要寫一份「待補 stub」，frontmatter 標
  *          `source_type: podcast-audio` 與 `transcript_status: pending-audio`，
- *          並保留音檔 URL，等有了轉錄後端再升級、或由備援（逐字稿站）補上正式版。
+ *          並保留音檔 URL，等有了轉錄後端再升級、或由 fallback.js（逐字稿站）補上正式版。
  *
  * 也就是說：**沒有任何 secret 也能持續運行**（退化為摘要 stub），
  * 有 secret 時才做真正的 audio → 逐字稿。這樣 GitHub Action 才能穩定不中斷。
@@ -201,7 +202,7 @@ function toMarkdown(item, transcript) {
   lines.push(`title: ${yamlStr(item.title.replace(/^EP\s*\d+\s*[|｜]?\s*/i, '').trim() || item.title)}`);
   if (date) lines.push(`date: ${date}`);
   lines.push(`source: ${yamlStr(item.link || APPLE_URL)}`);
-  lines.push('source_type: podcast-audio'); // 第一手音訊；備援（網站）不覆蓋已轉錄版
+  lines.push('source_type: podcast-audio'); // 第一手音訊搶快臨時版；待網站版校對覆蓋提質
   lines.push(`transcript_status: ${hasTx ? 'audio-transcribed' : 'pending-audio'}`);
   if (item.audioUrl) lines.push(`audio_url: ${yamlStr(item.audioUrl)}`);
   lines.push('---');
@@ -211,7 +212,7 @@ function toMarkdown(item, transcript) {
   if (date) lines.push(`> 📅 ${date}`, '');
   lines.push(
     hasTx
-      ? '> 🎙 本集逐字稿由 **Podcast 第一手音檔自動轉錄**（主來源），可能有辨識誤差；正確內容以原始節目為準。'
+      ? '> 🎙 本集為 **Podcast 第一手音檔自動轉錄**（搶快臨時版），可能有辨識誤差；逐字稿站發布後會以其校對提質。'
       : '> ⚠️ 尚未取得本集音檔轉錄，以下為 **Podcast 節目摘要 (show notes)** 暫存，非完整逐字稿（可能含業配）。設定轉錄後端、或由備援逐字稿站補上後會自動升級。',
     ''
   );
