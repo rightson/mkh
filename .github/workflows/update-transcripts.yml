@@ -49,6 +49,10 @@ jobs:
       - name: 校對——逐字稿站覆蓋提質
         run: node fallback.js
 
+      - name: 同步 README 首頁——總集數與最新一集連結
+        # 依 transcripts/ 現況更新根 README 的集數與最新集連結（冪等，內容一致就不動）。
+        run: node update-readme.js
+
       - name: 有變更則 commit 並 push
         run: |
           if [ -z "$(git status --porcelain)" ]; then
