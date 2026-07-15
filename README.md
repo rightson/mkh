@@ -14,7 +14,7 @@
 
 ## 怎麼讀
 
-- **[📘 核心方法論](methodology/核心方法論.md)**——先讀這篇。跨越全部 <!--EP_TOTAL-->~678 集<!--/EP_TOTAL-->、
+- **[📘 核心方法論](methodology/核心方法論.md)**——先讀這篇。跨越全部 <!--EP_TOTAL-->~679 集<!--/EP_TOTAL-->、
   淬煉出他長期不變的骨幹原則（依五大分類），是整個 repo 的入口。
 - **[🗂 分時期方法論](methodology/)**——想看他的方法**如何隨市況演變**（創始期的摸索、
   2022 熊市的風控、2023 起的 AI 大多頭…），讀 `methodology/` 底下的分期文件。
@@ -22,7 +22,7 @@
   [`methodology/README.md`](methodology/README.md)。
 - **[🎙 逐字稿原文](transcripts/)**——想查某條心法的上下文，每條都附集數出處
   （如 `EP675, EP662`），可回 `transcripts/EPxxx.md` 對照原話。
-  最新一集直接點：**🆕 <!--EP_LATEST-->[EP678](transcripts/EP678.md)<!--/EP_LATEST-->**。
+  最新一集直接點：**🆕 <!--EP_LATEST-->[EP679](transcripts/EP679.md)<!--/EP_LATEST-->**。
 
 ## 分類框架
 
