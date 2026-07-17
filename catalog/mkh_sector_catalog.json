@@ -1,0 +1,819 @@
+{
+  "meta": {
+    "title": "MKH 族群圖鑑 — 謝孟恭《股癌》曾提及的族群與標的",
+    "source": "《股癌》Podcast EP001–EP679（謝孟恭主持，2020-02 創始 ~ 2026-07）",
+    "canonical_home": "rightson/mkh · catalog/mkh_sector_catalog.json（唯一真相來源）。alpha-quant 內的同名檔為 vendored 快照，供 theme importer 離線打包用；改動請先改 mkh 再同步回來。",
+    "provenance": "由逐字稿（rightson/mkh transcripts/）抽取→跨期綜合的間接二次整理；族群清單與 episode 出處以逐字稿關鍵字掃描為底，標的歸戶以逐集精讀 + 出處交叉驗證。",
+    "disclaimer": "聽眾整理的非官方筆記，非投資建議、非謝孟恭本人或《股癌》官方產出；逐字稿為語音轉文字偶有誤差，一切以原始節目為準。標的＝『他曾提及』，不代表『他看多』或『現在持有』。",
+    "vision_trace": "VISION 波段帳（MKH 引擎）『每天觀察整體相對強勢族群』＋質化軌『族群故事、資金輪動劇本』；alpha-quant 的系統族群可後台編輯，本檔提供 theme-manager 的初始 import 資料。",
+    "regenerate": "族群/標的以逐字稿為準可回查；新集數更新後重跑抽取即可增修。改 mkh canonical → 同步到 alpha-quant vendored 快照。",
+    "symbol_convention": "TW＝上市櫃代號；US＝美股 ticker；其他市場 ticker 附市場尾碼（.HK/.JP/.KR/.CN）；加密＝幣別代號；商品＝英文代號。unlisted 僅列名於 sector.unlisted，不進 theme 成員。"
+  },
+  "sectors": [
+    {
+      "name": "AI 伺服器",
+      "aliases": ["AI Server", "伺服器代工", "ODM/OEM", "電子五哥/AI 代工"],
+      "category": "AI 硬體超級循環",
+      "market_scope": ["TW", "US"],
+      "since": "EP336",
+      "episodes": ["EP336", "EP338", "EP366", "EP367", "EP368", "EP373", "EP374", "EP375", "EP416", "EP420", "EP508", "EP558", "EP591"],
+      "note": "2023 起波段主軸；看 AI 佔營收比、拆估值（AI 高倍、傳統 NB 回 10 倍），鴻海一條龍壓縮同業毛利；2025 牛皮股轉骨年。",
+      "members": [
+        {"symbol": "2382", "name": "廣達", "market": "TW"},
+        {"symbol": "3231", "name": "緯創", "market": "TW"},
+        {"symbol": "6669", "name": "緯穎", "market": "TW"},
+        {"symbol": "2376", "name": "技嘉", "market": "TW"},
+        {"symbol": "2356", "name": "英業達", "market": "TW"},
+        {"symbol": "2357", "name": "華碩", "market": "TW"},
+        {"symbol": "2324", "name": "仁寶", "market": "TW"},
+        {"symbol": "2317", "name": "鴻海", "market": "TW"},
+        {"symbol": "3706", "name": "神達", "market": "TW"},
+        {"symbol": "3711", "name": "日月光投控", "market": "TW"},
+        {"symbol": "SMCI", "name": "美超微 Super Micro", "market": "US"},
+        {"symbol": "DELL", "name": "戴爾", "market": "US"},
+        {"symbol": "CLS", "name": "Celestica", "market": "US"},
+        {"symbol": "FLEX", "name": "偉創力 Flextronics", "market": "US"},
+        {"symbol": "601138.CN", "name": "工業富聯 FII", "market": "CN"}
+      ],
+      "unlisted": ["鴻佰 Ingrasys", "雲達 QCT", "技鋼"]
+    },
+    {
+      "name": "AI GPU / 加速運算",
+      "aliases": ["GPU", "AI 晶片", "訓練/推論加速器"],
+      "category": "AI 硬體超級循環",
+      "market_scope": ["US"],
+      "since": "EP336",
+      "episodes": ["EP336", "EP342", "EP366", "EP367", "EP371", "EP373", "EP416", "EP420", "EP425", "EP587", "EP590", "EP591"],
+      "note": "核心持股 NVDA 長多、供不應求維持 high margin；AMD MI300 市場預期常喊過高；缺貨是高點不是題材。",
+      "members": [
+        {"symbol": "NVDA", "name": "輝達 NVIDIA", "market": "US"},
+        {"symbol": "AMD", "name": "超微 AMD", "market": "US"}
+      ]
+    },
+    {
+      "name": "AI ASIC / 客製化晶片",
+      "aliases": ["ASIC", "IP 設計", "自研晶片"],
+      "category": "AI 硬體超級循環",
+      "market_scope": ["TW", "US"],
+      "since": "EP336",
+      "episodes": ["EP336", "EP366", "EP416", "EP420", "EP422", "EP423", "EP424", "EP590", "EP591"],
+      "note": "台股愛把 ASIC 廠綁一起炒但位階差很多（創意>世芯）；海外用 AVGO/MRVL 驗證雲端自研晶片（TPU/MTIA/Trainium/Inferentia）。",
+      "members": [
+        {"symbol": "3661", "name": "世芯-KY Alchip", "market": "TW"},
+        {"symbol": "3443", "name": "創意 GUC", "market": "TW"},
+        {"symbol": "3035", "name": "智原", "market": "TW"},
+        {"symbol": "6643", "name": "M31", "market": "TW"},
+        {"symbol": "6533", "name": "晶心科", "market": "TW"},
+        {"symbol": "AVGO", "name": "博通 Broadcom", "market": "US"},
+        {"symbol": "MRVL", "name": "邁威爾 Marvell", "market": "US"},
+        {"symbol": "ARM", "name": "安謀 Arm", "market": "US"}
+      ]
+    },
+    {
+      "name": "雲端 CSP / 大型科技",
+      "aliases": ["Hyperscaler", "FAANG", "Mag7", "科技巨頭"],
+      "category": "AI 硬體超級循環",
+      "market_scope": ["US"],
+      "since": "EP031",
+      "episodes": ["EP031", "EP048", "EP336", "EP339", "EP343", "EP369", "EP421", "EP424", "EP586", "EP587", "EP591"],
+      "note": "看 CAPEX 與自研晶片（Google TPU 最佳、AWS Annapurna 次之、微軟較弱）；廣告復甦是消費『春燕』第一槍。",
+      "members": [
+        {"symbol": "GOOGL", "name": "Alphabet Google", "market": "US"},
+        {"symbol": "AMZN", "name": "亞馬遜 Amazon/AWS", "market": "US"},
+        {"symbol": "MSFT", "name": "微軟 Microsoft", "market": "US"},
+        {"symbol": "META", "name": "Meta 臉書", "market": "US"},
+        {"symbol": "AAPL", "name": "蘋果 Apple", "market": "US"}
+      ],
+      "unlisted": ["OpenAI", "xAI"]
+    },
+    {
+      "name": "CoWoS / 先進封裝",
+      "aliases": ["先進封裝", "SoIC", "FOPLP", "OSAT"],
+      "category": "AI 硬體超級循環",
+      "market_scope": ["TW", "US"],
+      "since": "EP342",
+      "episodes": ["EP342", "EP349", "EP352", "EP366", "EP368", "EP373", "EP375", "EP420", "EP442", "EP461", "EP472", "EP626", "EP657"],
+      "note": "用 CoWoS 片數回推 NVDA 營收獲利；產能瓶頸但會解，偏好設備廠勝過做 rerate 的面板 FOPLP。",
+      "members": [
+        {"symbol": "2330", "name": "台積電", "market": "TW"},
+        {"symbol": "3711", "name": "日月光投控 ASE", "market": "TW"},
+        {"symbol": "3374", "name": "精材", "market": "TW"},
+        {"symbol": "3583", "name": "辛耘", "market": "TW"},
+        {"symbol": "3131", "name": "弘塑", "market": "TW"},
+        {"symbol": "AMKR", "name": "艾克爾 Amkor", "market": "US"}
+      ]
+    },
+    {
+      "name": "散熱 / 液冷",
+      "aliases": ["氣冷", "水冷 cold plate", "浸沒式液冷", "VC/MCL Lid", "TIM"],
+      "category": "AI 硬體超級循環",
+      "market_scope": ["TW", "US"],
+      "since": "EP371",
+      "episodes": ["EP354", "EP358", "EP363", "EP371", "EP418", "EP435", "EP437", "EP476", "EP499", "EP574", "EP588", "EP589", "EP610"],
+      "note": "GPU 瓦數變大→散熱是新題材新故事；水冷漏液讓浸沒式（two-phase）復活；氟化液因 3M 停產供需失衡（類比村田事件）。",
+      "members": [
+        {"symbol": "3017", "name": "奇鋐", "market": "TW"},
+        {"symbol": "3324", "name": "雙鴻", "market": "TW"},
+        {"symbol": "3653", "name": "健策", "market": "TW"},
+        {"symbol": "2308", "name": "台達電", "market": "TW"},
+        {"symbol": "MMM", "name": "3M", "market": "US"}
+      ],
+      "unlisted": ["訊凱/酷碼 Cooler Master"]
+    },
+    {
+      "name": "光通訊 / CPO / 高速傳輸",
+      "aliases": ["CPO", "光通", "矽光子", "retimer", "PCIe Switch", "scale-up/scale-out", "交換器"],
+      "category": "AI 硬體超級循環",
+      "market_scope": ["TW", "US"],
+      "since": "EP354",
+      "episodes": ["EP354", "EP403", "EP451", "EP466", "EP488", "EP519", "EP539", "EP583", "EP587", "EP588", "EP618", "EP619", "EP647", "EP667"],
+      "note": "老黃法說主推 Networking/scale across；材料極缺時被迫多放 retimer→switch/interconnect 受惠；『我全都要』整包高速傳輸。",
+      "members": [
+        {"symbol": "2345", "name": "智邦", "market": "TW"},
+        {"symbol": "6274", "name": "台燿", "market": "TW"},
+        {"symbol": "3234", "name": "光環", "market": "TW"},
+        {"symbol": "3363", "name": "上詮", "market": "TW"},
+        {"symbol": "3081", "name": "聯亞", "market": "TW"},
+        {"symbol": "2340", "name": "光磊", "market": "TW"},
+        {"symbol": "3450", "name": "聯鈞", "market": "TW"},
+        {"symbol": "CRDO", "name": "Credo", "market": "US"},
+        {"symbol": "ALAB", "name": "Astera Labs", "market": "US"},
+        {"symbol": "APH", "name": "安費諾 Amphenol", "market": "US"},
+        {"symbol": "LITE", "name": "Lumentum", "market": "US"},
+        {"symbol": "COHR", "name": "Coherent", "market": "US"},
+        {"symbol": "AVGO", "name": "博通 Broadcom", "market": "US"}
+      ]
+    },
+    {
+      "name": "電源 / HVDC",
+      "aliases": ["Power", "電源供應", "connector/power whip", "HVDC"],
+      "category": "AI 硬體超級循環",
+      "market_scope": ["TW"],
+      "since": "EP343",
+      "episodes": ["EP343", "EP367", "EP446", "EP449", "EP497", "EP516", "EP575", "EP587", "EP588"],
+      "note": "瓦數變大→電源設計大改，修正時指數的錢往這裡走；台達電 scale 與 power IC 潛能被低估。",
+      "members": [
+        {"symbol": "2308", "name": "台達電", "market": "TW"},
+        {"symbol": "2301", "name": "光寶科", "market": "TW"},
+        {"symbol": "6282", "name": "康舒", "market": "TW"},
+        {"symbol": "2457", "name": "飛宏", "market": "TW"},
+        {"symbol": "2360", "name": "致茂", "market": "TW"},
+        {"symbol": "3015", "name": "全漢", "market": "TW"}
+      ]
+    },
+    {
+      "name": "CCL 板材升級（銅箔/玻纖布/石英布）",
+      "aliases": ["銅箔", "玻纖布", "石英布", "M7/M8/M9", "銅纜"],
+      "category": "AI 硬體超級循環",
+      "market_scope": ["TW", "JP"],
+      "since": "EP485",
+      "episodes": ["EP485", "EP508", "EP564", "EP587", "EP595", "EP598", "EP606", "EP611", "EP617", "EP623"],
+      "note": "板材 M7→M8→M9 升級是中長期大故事，但股價提早反應（以 2021 ABF 三雄『營收最高時股價剩一半』為戒）；資金從玻纖布快速輪動到石英。",
+      "members": [
+        {"symbol": "8358", "name": "金居", "market": "TW"},
+        {"symbol": "2383", "name": "台光電", "market": "TW"},
+        {"symbol": "6213", "name": "聯茂", "market": "TW"},
+        {"symbol": "6274", "name": "台燿", "market": "TW"},
+        {"symbol": "3037.JP", "name": "日東紡 Nittobo", "market": "JP"},
+        {"symbol": "3407.JP", "name": "旭化成 Asahi Kasei", "market": "JP"}
+      ]
+    },
+    {
+      "name": "PCB / ABF 載板",
+      "aliases": ["印刷電路板", "CCL", "IC 載板", "ABF", "BT 載板"],
+      "category": "半導體核心",
+      "market_scope": ["TW"],
+      "since": "EP004",
+      "episodes": ["EP004", "EP005", "EP062", "EP066", "EP134", "EP203", "EP229", "EP252", "EP358", "EP392", "EP588"],
+      "note": "資金輪動示範（CCL→PCB→散熱→ABF 載板）；載板三雄曾漲到用隔年 Forward P/E；2024/7 ODM 期貨爆倉是過熱教材。",
+      "members": [
+        {"symbol": "3037", "name": "欣興", "market": "TW"},
+        {"symbol": "8046", "name": "南電", "market": "TW"},
+        {"symbol": "3189", "name": "景碩", "market": "TW"},
+        {"symbol": "2368", "name": "金像電", "market": "TW"},
+        {"symbol": "2313", "name": "華通", "market": "TW"},
+        {"symbol": "8155", "name": "博智", "market": "TW"},
+        {"symbol": "6213", "name": "聯茂", "market": "TW"}
+      ]
+    },
+    {
+      "name": "晶圓代工 / 先進製程",
+      "aliases": ["晶圓代工", "Foundry", "成熟製程", "矽盾"],
+      "category": "半導體核心",
+      "market_scope": ["TW", "US", "KR"],
+      "since": "EP007",
+      "episodes": ["EP031", "EP046", "EP063", "EP336", "EP339", "EP342", "EP368", "EP370", "EP420", "EP422", "EP586"],
+      "note": "『只看台積電會覺得市場在亂跌，要看整條鏈』；成熟製程受中國競爭；Intel×聯電 12 奈米雙贏；美國要股權自己市場買。",
+      "members": [
+        {"symbol": "2330", "name": "台積電", "market": "TW"},
+        {"symbol": "TSM", "name": "台積電 ADR", "market": "US"},
+        {"symbol": "2303", "name": "聯電", "market": "TW"},
+        {"symbol": "5347", "name": "世界先進", "market": "TW"},
+        {"symbol": "6770", "name": "力積電", "market": "TW"},
+        {"symbol": "INTC", "name": "英特爾 Intel", "market": "US"},
+        {"symbol": "GFS", "name": "格羅方德 GlobalFoundries", "market": "US"},
+        {"symbol": "005930.KR", "name": "三星 Samsung", "market": "KR"}
+      ]
+    },
+    {
+      "name": "記憶體 DRAM / NAND / HBM",
+      "aliases": ["DRAM", "NAND", "HBM", "儲存 Storage", "記憶體模組"],
+      "category": "半導體核心",
+      "market_scope": ["TW", "US", "KR"],
+      "since": "EP048",
+      "episodes": ["EP048", "EP059", "EP336", "EP338", "EP339", "EP369", "EP372", "EP376", "EP401", "EP412", "EP590", "EP591"],
+      "note": "AI 帶動高階 HBM/GDDR；三星減產確認底部；台廠吃『別人不要做』的雞犬升天；2025 儲存漲價由 Seagate/SanDisk 領頭。",
+      "members": [
+        {"symbol": "2344", "name": "華邦電", "market": "TW"},
+        {"symbol": "2337", "name": "旺宏", "market": "TW"},
+        {"symbol": "8299", "name": "群聯", "market": "TW"},
+        {"symbol": "3260", "name": "威剛", "market": "TW"},
+        {"symbol": "2408", "name": "南亞科", "market": "TW"},
+        {"symbol": "6531", "name": "愛普", "market": "TW"},
+        {"symbol": "5289", "name": "宜鼎", "market": "TW"},
+        {"symbol": "6770", "name": "力積電", "market": "TW"},
+        {"symbol": "MU", "name": "美光 Micron", "market": "US"},
+        {"symbol": "STX", "name": "希捷 Seagate", "market": "US"},
+        {"symbol": "PSTG", "name": "Pure Storage", "market": "US"},
+        {"symbol": "NTAP", "name": "NetApp", "market": "US"},
+        {"symbol": "SNDK", "name": "SanDisk", "market": "US"},
+        {"symbol": "005930.KR", "name": "三星 Samsung", "market": "KR"},
+        {"symbol": "000660.KR", "name": "SK 海力士", "market": "KR"}
+      ]
+    },
+    {
+      "name": "IC 設計",
+      "aliases": ["IC Design", "Fabless", "手機晶片", "SoC"],
+      "category": "半導體核心",
+      "market_scope": ["TW", "US"],
+      "since": "EP059",
+      "episodes": ["EP059", "EP063", "EP338", "EP343", "EP370", "EP416", "EP420"],
+      "note": "看毛利＝議價力；聯發科在華為救生艇論後撿 Oppo/小米轉單；低毛利單台積電轉給小廠。",
+      "members": [
+        {"symbol": "2454", "name": "聯發科", "market": "TW"},
+        {"symbol": "3034", "name": "聯詠", "market": "TW"},
+        {"symbol": "2379", "name": "瑞昱", "market": "TW"},
+        {"symbol": "5269", "name": "祥碩", "market": "TW"},
+        {"symbol": "3035", "name": "智原", "market": "TW"},
+        {"symbol": "4968", "name": "立積", "market": "TW"},
+        {"symbol": "QCOM", "name": "高通 Qualcomm", "market": "US"}
+      ]
+    },
+    {
+      "name": "矽晶圓材料",
+      "aliases": ["矽晶圓", "silicon wafer", "半導體材料", "靶材"],
+      "category": "半導體核心",
+      "market_scope": ["TW"],
+      "since": "EP062",
+      "episodes": ["EP062", "EP337", "EP418"],
+      "note": "板卡/MLCC 後的『歷史重演』案例，信越擴產帶動，後被 SEMI 下修進入長期修正。",
+      "members": [
+        {"symbol": "5483", "name": "中美晶", "market": "TW"},
+        {"symbol": "6488", "name": "環球晶", "market": "TW"},
+        {"symbol": "3532", "name": "台勝科", "market": "TW"},
+        {"symbol": "1785", "name": "光洋科", "market": "TW"}
+      ]
+    },
+    {
+      "name": "被動元件 MLCC",
+      "aliases": ["被動元件", "MLCC", "積層陶瓷電容"],
+      "category": "半導體核心",
+      "market_scope": ["TW", "JP", "KR"],
+      "since": "EP023",
+      "episodes": ["EP023", "EP042", "EP054", "EP062", "EP307", "EP337", "EP367", "EP371"],
+      "note": "缺貨漲價經典循環案例；國巨 2018/7 攻上 1310 元、營收股價同創高後腰斬，成『機會財終回原點』原型。",
+      "members": [
+        {"symbol": "2327", "name": "國巨", "market": "TW"},
+        {"symbol": "2492", "name": "華新科", "market": "TW"},
+        {"symbol": "3026", "name": "禾伸堂", "market": "TW"},
+        {"symbol": "6981.JP", "name": "村田製作所 Murata", "market": "JP"},
+        {"symbol": "6976.JP", "name": "太陽誘電 Taiyo Yuden", "market": "JP"}
+      ]
+    },
+    {
+      "name": "射頻 / PA / 化合物半導體",
+      "aliases": ["射頻元件", "功率放大器 PA", "砷化鎵 GaAs", "氮化鎵 GaN", "三五族"],
+      "category": "半導體核心",
+      "market_scope": ["TW", "US"],
+      "since": "EP059",
+      "episodes": ["EP059", "EP072", "EP338", "EP420"],
+      "note": "PA 三雄被打趴但股價不再創低『論述對、時間未到』；偏好代工廠（8086 稼動率優於 3105）。",
+      "members": [
+        {"symbol": "3105", "name": "穩懋", "market": "TW"},
+        {"symbol": "8086", "name": "宏捷科", "market": "TW"},
+        {"symbol": "2455", "name": "全新", "market": "TW"},
+        {"symbol": "3016", "name": "嘉晶", "market": "TW"},
+        {"symbol": "SWKS", "name": "Skyworks", "market": "US"},
+        {"symbol": "QRVO", "name": "Qorvo", "market": "US"}
+      ]
+    },
+    {
+      "name": "面板",
+      "aliases": ["面板", "LCD", "OLED", "電子紙", "驅動 IC"],
+      "category": "半導體核心",
+      "market_scope": ["TW"],
+      "since": "EP036",
+      "episodes": ["EP036", "EP046", "EP066", "EP143", "EP342", "EP370"],
+      "note": "多空看法保守（『鹹魚一條無夢想』），韓廠停 LCD/中國進整併帶短線缺貨；元太電子紙『年年在講』。",
+      "members": [
+        {"symbol": "2409", "name": "友達", "market": "TW"},
+        {"symbol": "3481", "name": "群創", "market": "TW"},
+        {"symbol": "8069", "name": "元太", "market": "TW"}
+      ]
+    },
+    {
+      "name": "電動車 / 特斯拉複合體",
+      "aliases": ["EV", "特斯拉", "自駕 FSD", "電動車供應鏈"],
+      "category": "電動車與車用",
+      "market_scope": ["US", "TW", "HK"],
+      "since": "EP022",
+      "episodes": ["EP022", "EP046", "EP063", "EP336", "EP367", "EP372", "EP416", "EP422", "EP591"],
+      "note": "核心持股 TSLA，當軟體/AI player 看（Dojo/FSD/Robotaxi/Optimus/能源）；台廠供應鏈『非你不可性低』，要買就直接買本體。",
+      "members": [
+        {"symbol": "TSLA", "name": "特斯拉 Tesla", "market": "US"},
+        {"symbol": "NIO", "name": "蔚來", "market": "US"},
+        {"symbol": "QS", "name": "QuantumScape", "market": "US"},
+        {"symbol": "1211.HK", "name": "比亞迪 BYD", "market": "HK"},
+        {"symbol": "1536", "name": "和大", "market": "TW"},
+        {"symbol": "3346", "name": "麗清", "market": "TW"},
+        {"symbol": "3665", "name": "貿聯-KY", "market": "TW"},
+        {"symbol": "2351", "name": "順德", "market": "TW"}
+      ]
+    },
+    {
+      "name": "車用半導體 / 功率元件",
+      "aliases": ["車用半導體", "功率元件", "IDM", "MCU/PMIC"],
+      "category": "電動車與車用",
+      "market_scope": ["US", "TW"],
+      "since": "EP373",
+      "episodes": ["EP373", "EP416", "EP419", "EP423"],
+      "note": "車用是『復甦』非『看點』，要等降息一陣再看 IDM；台廠功率元件在特斯拉供應鏈用營收驗證。",
+      "members": [
+        {"symbol": "ON", "name": "安森美 onsemi", "market": "US"},
+        {"symbol": "NXPI", "name": "恩智浦 NXP", "market": "US"},
+        {"symbol": "WOLF", "name": "Wolfspeed", "market": "US"},
+        {"symbol": "5425", "name": "台半", "market": "TW"},
+        {"symbol": "2481", "name": "強茂", "market": "TW"},
+        {"symbol": "6271", "name": "同欣電", "market": "TW"}
+      ]
+    },
+    {
+      "name": "蘋果供應鏈",
+      "aliases": ["蘋概股", "iPhone 供應鏈", "TWS/AirPods", "光學鏡頭"],
+      "category": "蘋果與消費電子",
+      "market_scope": ["TW", "US"],
+      "since": "EP013",
+      "episodes": ["EP013", "EP048", "EP071", "EP338", "EP342", "EP372", "EP416", "EP591"],
+      "note": "別亂追記者挑的概念股，要知道做哪個零件、佔營收比、拉貨狀況；用月營收驗證有沒有接到單。",
+      "members": [
+        {"symbol": "AAPL", "name": "蘋果 Apple", "market": "US"},
+        {"symbol": "2330", "name": "台積電", "market": "TW"},
+        {"symbol": "2317", "name": "鴻海", "market": "TW"},
+        {"symbol": "3008", "name": "大立光", "market": "TW"},
+        {"symbol": "3406", "name": "玉晶光", "market": "TW"},
+        {"symbol": "3376", "name": "新日興", "market": "TW"},
+        {"symbol": "3548", "name": "兆利", "market": "TW"},
+        {"symbol": "2392", "name": "正崴", "market": "TW"}
+      ]
+    },
+    {
+      "name": "AR / VR / 穿戴",
+      "aliases": ["Vision Pro", "MR", "AR 眼鏡", "Pancake 光學"],
+      "category": "蘋果與消費電子",
+      "market_scope": ["TW", "US"],
+      "since": "EP370",
+      "episodes": ["EP370", "EP372", "EP416", "EP420", "EP423", "EP586"],
+      "note": "眼鏡取代手機的勝率高於 VR；Vision Pro 第二波沒想像高、台廠貢獻有限；Meta 產品線每代都買。",
+      "members": [
+        {"symbol": "3406", "name": "玉晶光", "market": "TW"},
+        {"symbol": "3504", "name": "揚明光", "market": "TW"},
+        {"symbol": "2498", "name": "宏達電 HTC", "market": "TW"},
+        {"symbol": "SONY", "name": "索尼 Sony", "market": "US"},
+        {"symbol": "META", "name": "Meta Ray-Ban", "market": "US"}
+      ]
+    },
+    {
+      "name": "摺疊機供應鏈",
+      "aliases": ["摺疊手機", "鉸鏈", "Hinge"],
+      "category": "蘋果與消費電子",
+      "market_scope": ["TW", "US"],
+      "since": "EP424",
+      "episodes": ["EP424", "EP591"],
+      "note": "Apple Air 出現後判斷摺疊機七八成會做（已見試產/防摔測試），但蘋果股不好掌握、可能遞延或 cancel；要分清做華為/三星的別家。",
+      "members": [
+        {"symbol": "AAPL", "name": "蘋果 Apple", "market": "US"},
+        {"symbol": "3376", "name": "新日興", "market": "TW"},
+        {"symbol": "6805", "name": "富世達", "market": "TW"}
+      ]
+    },
+    {
+      "name": "5G / 網通設備",
+      "aliases": ["5G", "網通", "Wi-Fi Router", "基地台"],
+      "category": "通訊與衛星",
+      "market_scope": ["TW", "US"],
+      "since": "EP005",
+      "episodes": ["EP005", "EP031", "EP064", "EP065", "EP066", "EP072", "EP194", "EP234"],
+      "note": "8/20 下殺後相對抗跌、爬回的強勢族群；純度高才有意義。",
+      "members": [
+        {"symbol": "6285", "name": "啟碁", "market": "TW"},
+        {"symbol": "2345", "name": "智邦", "market": "TW"},
+        {"symbol": "2379", "name": "瑞昱", "market": "TW"},
+        {"symbol": "4906", "name": "正文", "market": "TW"},
+        {"symbol": "NOK", "name": "諾基亞 Nokia", "market": "US"},
+        {"symbol": "ERIC", "name": "愛立信 Ericsson", "market": "US"}
+      ]
+    },
+    {
+      "name": "低軌衛星 / 太空",
+      "aliases": ["低軌衛星", "LEO", "Starlink", "衛星通訊", "太空"],
+      "category": "通訊與衛星",
+      "market_scope": ["TW", "US"],
+      "since": "EP063",
+      "episodes": ["EP039", "EP063", "EP064", "EP198", "EP219", "EP235", "EP570", "EP619", "EP629", "EP662"],
+      "note": "Next Big Thing，SpaceX 買不到只能玩台廠供應鏈、須看營收佔比；歷史上通訊衛星公司多破產。",
+      "members": [
+        {"symbol": "6285", "name": "啟碁", "market": "TW"},
+        {"symbol": "2314", "name": "台揚", "market": "TW"},
+        {"symbol": "2312", "name": "金寶", "market": "TW"},
+        {"symbol": "3491", "name": "昇達科", "market": "TW"},
+        {"symbol": "IRDM", "name": "銥衛星 Iridium", "market": "US"},
+        {"symbol": "GSAT", "name": "Globalstar", "market": "US"},
+        {"symbol": "SPCE", "name": "維珍銀河", "market": "US"}
+      ],
+      "unlisted": ["SpaceX / Starlink", "OneWeb"]
+    },
+    {
+      "name": "航運（貨櫃/散裝）",
+      "aliases": ["航運", "貨櫃輪", "散裝", "海運", "航海王"],
+      "category": "傳產與景氣循環",
+      "market_scope": ["TW"],
+      "since": "EP073",
+      "episodes": ["EP073", "EP103", "EP125", "EP144", "EP158", "EP182", "EP184", "EP190", "EP246", "EP542"],
+      "note": "看波羅的海指數（指數先行、股價後動）；2021 貨櫃三雄從『無夢想產業』變當紅炸子雞的循環股教材。",
+      "members": [
+        {"symbol": "2603", "name": "長榮", "market": "TW"},
+        {"symbol": "2609", "name": "陽明", "market": "TW"},
+        {"symbol": "2615", "name": "萬海", "market": "TW"},
+        {"symbol": "2606", "name": "裕民", "market": "TW"},
+        {"symbol": "2637", "name": "慧洋-KY", "market": "TW"}
+      ]
+    },
+    {
+      "name": "航空",
+      "aliases": ["航空股", "廉航", "貨運"],
+      "category": "傳產與景氣循環",
+      "market_scope": ["TW", "US", "HK"],
+      "since": "EP016",
+      "episodes": ["EP016", "EP021", "EP022", "EP033", "EP035", "EP061"],
+      "note": "疫情最直接受災、巴菲特清倉四大航空；靠貨運撐；反彈時巴菲特反而踏空。",
+      "members": [
+        {"symbol": "2610", "name": "華航", "market": "TW"},
+        {"symbol": "2618", "name": "長榮航", "market": "TW"},
+        {"symbol": "DAL", "name": "達美 Delta", "market": "US"},
+        {"symbol": "AAL", "name": "美國航空", "market": "US"},
+        {"symbol": "LUV", "name": "西南航空", "market": "US"},
+        {"symbol": "BA", "name": "波音 Boeing", "market": "US"},
+        {"symbol": "0293.HK", "name": "國泰航空", "market": "HK"}
+      ]
+    },
+    {
+      "name": "鋼鐵",
+      "aliases": ["鋼鐵股", "鋼鐵人"],
+      "category": "傳產與景氣循環",
+      "market_scope": ["TW"],
+      "since": "EP034",
+      "episodes": ["EP034", "EP127", "EP138", "EP141", "EP159", "EP184", "EP231", "EP448"],
+      "note": "2021 資金輪動『鋼鐵人』；景氣循環股看報價不看本益比。",
+      "members": [
+        {"symbol": "2002", "name": "中鋼", "market": "TW"},
+        {"symbol": "2027", "name": "大成鋼", "market": "TW"},
+        {"symbol": "2006", "name": "東和鋼鐵", "market": "TW"},
+        {"symbol": "9958", "name": "世紀鋼", "market": "TW"}
+      ]
+    },
+    {
+      "name": "水泥",
+      "aliases": ["水泥股", "資產股"],
+      "category": "傳產與景氣循環",
+      "market_scope": ["TW"],
+      "since": "EP027",
+      "episodes": ["EP027", "EP030", "EP128", "EP306", "EP453"],
+      "note": "亞泥是『理性壓過感性』代表案例——因獨佔體質好照買；儲能/綠電轉型題材。",
+      "members": [
+        {"symbol": "1101", "name": "台泥", "market": "TW"},
+        {"symbol": "1102", "name": "亞泥", "market": "TW"}
+      ]
+    },
+    {
+      "name": "石化 / 原油 / 能源",
+      "aliases": ["原油", "石油", "台塑四寶", "能源股"],
+      "category": "傳產與景氣循環",
+      "market_scope": ["TW", "US"],
+      "since": "EP007",
+      "episodes": ["EP007", "EP019", "EP023", "EP029", "EP031", "EP048", "EP049", "EP057"],
+      "note": "反覆警告原油正 2/USO 溢價與轉倉損耗『菜雞屠宰場』，要買買期貨；WTI 五月期貨史上首次負值；能源股沒戰爭恐長期躺平。",
+      "members": [
+        {"symbol": "1301", "name": "台塑", "market": "TW"},
+        {"symbol": "1303", "name": "南亞", "market": "TW"},
+        {"symbol": "1326", "name": "台化", "market": "TW"},
+        {"symbol": "6505", "name": "台塑化", "market": "TW"},
+        {"symbol": "00642U", "name": "元大S&P石油", "market": "TW"},
+        {"symbol": "00672L", "name": "元大S&P原油正2", "market": "TW"},
+        {"symbol": "USO", "name": "美國石油基金", "market": "US"},
+        {"symbol": "XLE", "name": "能源類股 ETF", "market": "US"}
+      ]
+    },
+    {
+      "name": "金融 / 壽險",
+      "aliases": ["金融股", "金控", "銀行", "壽險"],
+      "category": "傳產與景氣循環",
+      "market_scope": ["TW"],
+      "since": "EP017",
+      "episodes": ["EP017", "EP033", "EP046", "EP049", "EP180", "EP315", "EP549"],
+      "note": "有壽險的金控會避開（低利、匯損）；『以前是存股不代表未來是』；漲勢最後一棒常輪到金融股（極端狀況才真的買）。",
+      "members": [
+        {"symbol": "2884", "name": "玉山金", "market": "TW"},
+        {"symbol": "2885", "name": "元大金", "market": "TW"},
+        {"symbol": "2881", "name": "富邦金", "market": "TW"},
+        {"symbol": "2882", "name": "國泰金", "market": "TW"},
+        {"symbol": "2886", "name": "兆豐金", "market": "TW"},
+        {"symbol": "2890", "name": "永豐金", "market": "TW"}
+      ]
+    },
+    {
+      "name": "重電 / 電力設備",
+      "aliases": ["重電", "電力設備", "電網", "變壓器"],
+      "category": "能源與綠能",
+      "market_scope": ["TW"],
+      "since": "EP370",
+      "episodes": ["EP370", "EP408", "EP446", "EP448", "EP458", "EP496", "EP502", "EP569", "EP639"],
+      "note": "AI 資料中心電力需求＋台電強韌電網＋美國電網老化，長題材；『能源重電表現也很好，不是只有 AI』。",
+      "members": [
+        {"symbol": "1519", "name": "華城", "market": "TW"},
+        {"symbol": "1503", "name": "士電", "market": "TW"},
+        {"symbol": "1513", "name": "中興電", "market": "TW"},
+        {"symbol": "1514", "name": "亞力", "market": "TW"}
+      ]
+    },
+    {
+      "name": "綠能 / 太陽能 / 風電",
+      "aliases": ["綠能", "太陽能", "離岸風電", "再生能源"],
+      "category": "能源與綠能",
+      "market_scope": ["TW"],
+      "since": "EP037",
+      "episodes": ["EP037", "EP044", "EP062", "EP105", "EP223", "EP304", "EP501", "EP639"],
+      "note": "族群一吵齊漲、易買到假的跌很重；『政府用力推就不會太快走完』但個人多不看好純度低的。",
+      "members": [
+        {"symbol": "3708", "name": "上緯投控", "market": "TW"},
+        {"symbol": "6244", "name": "茂迪", "market": "TW"},
+        {"symbol": "9958", "name": "世紀鋼", "market": "TW"},
+        {"symbol": "6869", "name": "雲豹能源", "market": "TW"}
+      ]
+    },
+    {
+      "name": "儲能 / 氫能源",
+      "aliases": ["儲能", "Megapack", "氫能源", "燃料電池"],
+      "category": "能源與綠能",
+      "market_scope": ["US", "TW"],
+      "since": "EP070",
+      "episodes": ["EP070", "EP208", "EP336", "EP422", "EP474"],
+      "note": "特斯拉能源（Megapack/Powerwall）成長最漂亮；氫能轉換效率差『脫褲子放屁』，競爭不過 BEV。",
+      "members": [
+        {"symbol": "TSLA", "name": "特斯拉 Tesla Energy", "market": "US"},
+        {"symbol": "PLUG", "name": "Plug Power", "market": "US"},
+        {"symbol": "BE", "name": "Bloom Energy", "market": "US"},
+        {"symbol": "BLDP", "name": "Ballard Power", "market": "US"}
+      ]
+    },
+    {
+      "name": "軍工 / 國防",
+      "aliases": ["軍工", "國防", "不對稱作戰", "飛彈"],
+      "category": "軍工與機器人",
+      "market_scope": ["US", "TW"],
+      "since": "EP059",
+      "episodes": ["EP059", "EP061", "EP213", "EP301", "EP460", "EP581", "EP589", "EP600"],
+      "note": "自組軍工 ETF、剔除波音；當『部分核心持股』真的抱著——國防部無限上修預算、追求不對稱打擊，長題材；風險是系統性下殺或突然停戰。",
+      "members": [
+        {"symbol": "LMT", "name": "洛克希德馬丁", "market": "US"},
+        {"symbol": "NOC", "name": "諾斯洛普格魯曼", "market": "US"},
+        {"symbol": "RTX", "name": "雷神 RTX", "market": "US"},
+        {"symbol": "MRCY", "name": "Mercury Systems", "market": "US"},
+        {"symbol": "2634", "name": "漢翔", "market": "TW"},
+        {"symbol": "8033", "name": "雷虎", "market": "TW"},
+        {"symbol": "6753", "name": "龍德造船", "market": "TW"}
+      ],
+      "unlisted": ["Anduril"]
+    },
+    {
+      "name": "機器人 / 人形機器人",
+      "aliases": ["機器人", "人形機器人", "Optimus", "Humanoid"],
+      "category": "軍工與機器人",
+      "market_scope": ["US", "TW"],
+      "since": "EP285",
+      "episodes": ["EP285", "EP319", "EP349", "EP422", "EP443", "EP463", "EP532", "EP588"],
+      "note": "老黃/特斯拉一講機器人（Optimus、Thor 量產）內股就噴，貢獻低但市場要故事。",
+      "members": [
+        {"symbol": "TSLA", "name": "特斯拉 Optimus", "market": "US"},
+        {"symbol": "NVDA", "name": "輝達 Thor/Isaac", "market": "US"},
+        {"symbol": "2049", "name": "上銀", "market": "TW"},
+        {"symbol": "1590", "name": "亞德客-KY", "market": "TW"}
+      ]
+    },
+    {
+      "name": "無人機",
+      "aliases": ["無人機", "UAV", "drone"],
+      "category": "軍工與機器人",
+      "market_scope": ["TW"],
+      "since": "EP393",
+      "episodes": ["EP393", "EP488", "EP563", "EP589", "EP600", "EP641"],
+      "note": "軍工題材加溫的延伸；越來越多廠家（含義美等異業）想跨足做無人機、想 IPO。",
+      "members": [
+        {"symbol": "8033", "name": "雷虎", "market": "TW"},
+        {"symbol": "3163", "name": "波若威", "market": "TW"},
+        {"symbol": "2645", "name": "長榮航太", "market": "TW"}
+      ],
+      "unlisted": ["經緯航太", "義美（跨足無人機）"]
+    },
+    {
+      "name": "SaaS / 雲端軟體",
+      "aliases": ["SaaS", "雲端軟體", "資安", "CDN"],
+      "category": "軟體與網路",
+      "market_scope": ["US"],
+      "since": "EP047",
+      "episodes": ["EP047", "EP061", "EP065", "EP067", "EP336", "EP417", "EP421"],
+      "note": "最看好的趨勢之一，用 PS Ratio 估值；降息受惠、EV/NTM Sales 低於均值時提早布局；財報漂亮仍被下殺要抱得住。",
+      "members": [
+        {"symbol": "NET", "name": "Cloudflare", "market": "US"},
+        {"symbol": "SNOW", "name": "Snowflake", "market": "US"},
+        {"symbol": "DDOG", "name": "Datadog", "market": "US"},
+        {"symbol": "CRWD", "name": "CrowdStrike", "market": "US"},
+        {"symbol": "PLTR", "name": "Palantir", "market": "US"},
+        {"symbol": "TTD", "name": "The Trade Desk", "market": "US"},
+        {"symbol": "CRM", "name": "Salesforce", "market": "US"},
+        {"symbol": "ADBE", "name": "Adobe", "market": "US"},
+        {"symbol": "FSLY", "name": "Fastly", "market": "US"}
+      ]
+    },
+    {
+      "name": "電商",
+      "aliases": ["電商", "e-commerce", "跨境電商"],
+      "category": "軟體與網路",
+      "market_scope": ["US"],
+      "since": "EP047",
+      "episodes": ["EP047", "EP052", "EP065", "EP066"],
+      "note": "『電商界特斯拉』Shopify 買不到→往下找 BigCommerce（試單一堆人跟單賺到）。",
+      "members": [
+        {"symbol": "SHOP", "name": "Shopify", "market": "US"},
+        {"symbol": "BIGC", "name": "BigCommerce", "market": "US"},
+        {"symbol": "AMZN", "name": "亞馬遜 Amazon", "market": "US"},
+        {"symbol": "SE", "name": "Sea 蝦皮", "market": "US"},
+        {"symbol": "MELI", "name": "MercadoLibre", "market": "US"}
+      ]
+    },
+    {
+      "name": "串流影音 / 音樂",
+      "aliases": ["串流", "streaming", "Podcast", "音樂串流"],
+      "category": "軟體與網路",
+      "market_scope": ["US"],
+      "since": "EP047",
+      "episodes": ["EP047", "EP051", "EP059", "EP065", "EP073", "EP425"],
+      "note": "看好 Spotify 成音訊串流代名詞、廣告分潤（Joe Rogan 大合約）；迪士尼財報像屎卻利空出盡大漲。",
+      "members": [
+        {"symbol": "SPOT", "name": "Spotify", "market": "US"},
+        {"symbol": "NFLX", "name": "Netflix", "market": "US"},
+        {"symbol": "DIS", "name": "迪士尼 Disney", "market": "US"},
+        {"symbol": "TME", "name": "騰訊音樂", "market": "US"}
+      ]
+    },
+    {
+      "name": "遊戲",
+      "aliases": ["遊戲股", "3A 大作", "雲端遊戲", "遊戲主機"],
+      "category": "軟體與網路",
+      "market_scope": ["US", "TW", "JP"],
+      "since": "EP017",
+      "episodes": ["EP017", "EP034", "EP047", "EP052", "EP074", "EP075"],
+      "note": "『出貨在利多實現時』（遊戲橘子天堂 M、FF7 上市即高點）；雲端遊戲（GeForce Now/xCloud）是改變遊戲圈的大題材。",
+      "members": [
+        {"symbol": "TTWO", "name": "Take-Two", "market": "US"},
+        {"symbol": "EA", "name": "美商藝電", "market": "US"},
+        {"symbol": "U", "name": "Unity", "market": "US"},
+        {"symbol": "6180", "name": "遊戲橘子", "market": "TW"},
+        {"symbol": "5478", "name": "智冠", "market": "TW"},
+        {"symbol": "SONY", "name": "索尼 Sony", "market": "US"}
+      ]
+    },
+    {
+      "name": "生技 / 新藥",
+      "aliases": ["生技", "新藥", "疫苗", "解盲"],
+      "category": "生技醫療",
+      "market_scope": ["TW", "US"],
+      "since": "EP016",
+      "episodes": ["EP016", "EP033", "EP041", "EP054", "EP057", "EP366"],
+      "note": "水最深、定價邏輯特殊（解盲朦朧美噴過頭後重摔），每幾年炒一次缺長期成長，一般人別追；自己在中裕受過重傷。",
+      "members": [
+        {"symbol": "4743", "name": "合一", "market": "TW"},
+        {"symbol": "4128", "name": "中天", "market": "TW"},
+        {"symbol": "4174", "name": "浩鼎", "market": "TW"},
+        {"symbol": "4147", "name": "中裕", "market": "TW"},
+        {"symbol": "6589", "name": "台康生技", "market": "TW"},
+        {"symbol": "GILD", "name": "吉利德 Gilead", "market": "US"}
+      ]
+    },
+    {
+      "name": "加密貨幣 / 區塊鏈",
+      "aliases": ["加密貨幣", "比特幣", "區塊鏈", "幣圈"],
+      "category": "另類資產與工具",
+      "market_scope": ["CRYPTO", "US"],
+      "since": "EP029",
+      "episodes": ["EP029", "EP036", "EP054", "EP113", "EP337", "EP497", "EP514"],
+      "note": "只看好比特幣為信仰中心（像貴金屬定錨）、可小比例資產配置；小幣＝資金盤/ICO、絕不碰路邊垃圾幣。",
+      "members": [
+        {"symbol": "BTC", "name": "比特幣 Bitcoin", "market": "CRYPTO"},
+        {"symbol": "ETH", "name": "以太幣 Ethereum", "market": "CRYPTO"},
+        {"symbol": "MSTR", "name": "MicroStrategy", "market": "US"},
+        {"symbol": "COIN", "name": "Coinbase", "market": "US"}
+      ]
+    },
+    {
+      "name": "黃金 / 貴金屬",
+      "aliases": ["黃金", "白銀", "貴金屬", "避險"],
+      "category": "另類資產與工具",
+      "market_scope": ["COMMODITY", "US"],
+      "since": "EP002",
+      "episodes": ["EP006", "EP054", "EP057", "EP061", "EP339", "EP418"],
+      "note": "不喜歡黃金（不生息、報酬不會贏股票），最多當資產配置一小部分；避險偏好用『供需失衡受惠者』而非黃金/美元。",
+      "members": [
+        {"symbol": "GOLD", "name": "黃金", "market": "COMMODITY"},
+        {"symbol": "SILVER", "name": "白銀", "market": "COMMODITY"},
+        {"symbol": "GLD", "name": "黃金 ETF", "market": "US"},
+        {"symbol": "GDX", "name": "金礦 ETF", "market": "US"}
+      ]
+    },
+    {
+      "name": "半導體設備 / 廠務",
+      "aliases": ["半導體設備", "封裝設備", "廠務", "無塵室"],
+      "category": "半導體核心",
+      "market_scope": ["US", "TW", "JP"],
+      "since": "EP420",
+      "episodes": ["EP420", "EP482", "EP543", "EP616", "EP618", "EP624"],
+      "note": "Foundry/OSAT 擴產→設備、無塵室、配管配電受惠，CAPEX 拉到 2027；五大廠各有強項（ASML 曝光、Lam 蝕刻、應材鍍膜、KLA 量測、TEL 塗佈）。",
+      "members": [
+        {"symbol": "ASML", "name": "艾司摩爾 ASML", "market": "US"},
+        {"symbol": "LRCX", "name": "科林 Lam Research", "market": "US"},
+        {"symbol": "AMAT", "name": "應用材料 Applied Materials", "market": "US"},
+        {"symbol": "KLAC", "name": "科磊 KLA", "market": "US"},
+        {"symbol": "8035.JP", "name": "東京威力科創 TEL", "market": "JP"},
+        {"symbol": "3583", "name": "辛耘", "market": "TW"},
+        {"symbol": "3131", "name": "弘塑", "market": "TW"},
+        {"symbol": "2449", "name": "京元電", "market": "TW"}
+      ]
+    },
+    {
+      "name": "稀土 / 關鍵金屬（去中化）",
+      "aliases": ["稀土", "關鍵金屬", "Non-China 供應鏈", "去中化"],
+      "category": "傳產與景氣循環",
+      "market_scope": ["US"],
+      "since": "EP600",
+      "episodes": ["EP350", "EP600", "EP602", "EP603", "EP604"],
+      "note": "中國稀土斷供＝經濟宣戰但不會全面停擺；MP 屬『先噴為敬』題材股，中美和解營收未必開得出；真正該怕的是缺貨漲價使 Fed 延後降息。",
+      "members": [
+        {"symbol": "MP", "name": "MP Materials", "market": "US"},
+        {"symbol": "UEC", "name": "Uranium Energy", "market": "US"}
+      ]
+    },
+    {
+      "name": "核能 / SMR / 鈾",
+      "aliases": ["核能", "小型模組化反應爐 SMR", "鈾", "AI 電力"],
+      "category": "能源與綠能",
+      "market_scope": ["US", "COMMODITY"],
+      "since": "EP602",
+      "episodes": ["EP602", "EP623"],
+      "note": "AI 資料中心電力需求帶起的夢想股；典型『買題材、中了就爆、營收出來就跌』，沒基本面 reference 就用價格設 trailing stop（回檔 15% 出）。",
+      "members": [
+        {"symbol": "OKLO", "name": "Oklo", "market": "US"},
+        {"symbol": "UEC", "name": "Uranium Energy", "market": "US"},
+        {"symbol": "URANIUM", "name": "鈾 / 濃縮鈾", "market": "COMMODITY"}
+      ]
+    },
+    {
+      "name": "指數 / ETF 工具",
+      "aliases": ["指數化投資", "ETF", "台指期", "槓桿/反向 ETF", "波動率 VIX"],
+      "category": "另類資產與工具",
+      "market_scope": ["TW", "US"],
+      "since": "EP004",
+      "episodes": ["EP004", "EP007", "EP035", "EP337", "EP369", "EP418", "EP588", "EP589"],
+      "note": "菜雞就買原型 ETF 賺市場平均、先比費用；台指期去槓桿＋逆價差可當追蹤工具取代 0050/006208；正二/VIX 是工具不是信仰。",
+      "members": [
+        {"symbol": "0050", "name": "元大台灣50", "market": "TW"},
+        {"symbol": "0056", "name": "元大高股息", "market": "TW"},
+        {"symbol": "006208", "name": "富邦台50", "market": "TW"},
+        {"symbol": "00631L", "name": "元大台灣50正2", "market": "TW"},
+        {"symbol": "00677U", "name": "富邦VIX", "market": "TW"},
+        {"symbol": "VOO", "name": "Vanguard S&P500", "market": "US"},
+        {"symbol": "VTI", "name": "Vanguard 全美股", "market": "US"},
+        {"symbol": "VT", "name": "Vanguard 全世界股票", "market": "US"},
+        {"symbol": "QQQ", "name": "Invesco 那斯達克100", "market": "US"}
+      ]
+    }
+  ]
+}
