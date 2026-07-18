@@ -25,8 +25,11 @@
   最新一集直接點：**🆕 <!--EP_LATEST-->[EP679](transcripts/EP679.md)<!--/EP_LATEST-->**。
 - **[🗂 族群圖鑑](catalog/族群圖鑑.md)**——心法談「怎麼想」，族群圖鑑記「談過什麼」：
   把全部逐字稿裡謝孟恭反覆提及的**族群（類股主題）與其代表標的**（台股＋全球並列）
-  策展成分類清單。**47 族群 / 282 標的**，每族群附別稱、市場範圍、出處集數與一句 MK 觀點。
-  資料源是 [`catalog/mkh_sector_catalog.json`](catalog/mkh_sector_catalog.json)（唯一真相來源），
+  策展成分類清單。**47 族群 / 282 標的**，每族群附別稱、市場範圍、出處集數與一句 MK 觀點，
+  並往下鑽一層到**供應鏈產品上下游顆粒度**（上游材料→中游零組件→下游模組・終端、
+  產品鏈結與跨族群關係，共 297 節點 / 181 鏈結，每條附集數出處）。
+  資料源是 [`catalog/mkh_sector_catalog.json`](catalog/mkh_sector_catalog.json)（唯一真相來源，
+  改動後執行 `node catalog/generate.js` 重新產出圖鑑），
   下游 [alpha-quant](https://github.com/rightson/alpha-quant) 交易系統以此當「族群管理器」的
   初始 import 資料（之後可在系統後台自由增修）。**標的＝『曾提及』，非投資建議、非看多或持有。**
 
