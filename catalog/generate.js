@@ -19,15 +19,16 @@ const memberCount = sectors.reduce((n, s) => n + s.members.length, 0);
 const ticker = (m) => `\`${m.symbol} ${m.name} (${m.market})\``;
 const eps = (list) => (list && list.length ? list.join('、') : '');
 
-// 供應鏈項目：`產品（公司、公司｜note｜EPxxx、EPyyy）`
+// 供應鏈節點一行一項：`- 產品（公司、公司）— note（EPxxx、EPyyy）`
+// 一行一節點／一行一鏈結，方便閱讀，也保留將來轉供應鏈局部 DAG 圖的結構。
 function chainItem(item) {
-  const parts = [];
+  let line = item.product;
   if (item.companies && item.companies.length) {
-    parts.push(item.companies.map((c) => `\`${c}\``).join('、'));
+    line += `（${item.companies.map((c) => `\`${c}\``).join('、')}）`;
   }
-  if (item.note) parts.push(item.note);
-  if (item.episodes && item.episodes.length) parts.push(eps(item.episodes));
-  return parts.length ? `${item.product}（${parts.join('｜')}）` : item.product;
+  if (item.note) line += ` — ${item.note}`;
+  if (item.episodes && item.episodes.length) line += `（${eps(item.episodes)}）`;
+  return line;
 }
 
 function sectorBlock(s) {
@@ -39,19 +40,28 @@ function sectorBlock(s) {
     lines.push('- **供應鏈**（節目提及之上下游）：');
     for (const st of s.chain.stages) {
       if (!st.items.length) continue;
-      lines.push(`  - ${st.stage}：${st.items.map(chainItem).join(' ｜ ')}`);
+      lines.push(`  - **${st.stage}**`);
+      for (const item of st.items) {
+        lines.push(`    - ${chainItem(item)}`);
+      }
     }
     if (s.chain.links && s.chain.links.length) {
-      const links = s.chain.links
-        .map((l) => `${l.from} → ${l.to}${l.episodes && l.episodes.length ? `（${eps(l.episodes)}）` : ''}`)
-        .join('；');
-      lines.push(`  - 鏈結：${links}`);
+      lines.push('  - **鏈結**');
+      for (const l of s.chain.links) {
+        let line = `    - ${l.from} → ${l.to}`;
+        if (l.note) line += ` — ${l.note}`;
+        if (l.episodes && l.episodes.length) line += `（${eps(l.episodes)}）`;
+        lines.push(line);
+      }
     }
     if (s.chain.cross_sector && s.chain.cross_sector.length) {
-      const xs = s.chain.cross_sector
-        .map((x) => `→「${x.to_sector}」${x.note ? `（${x.note}）` : ''}`)
-        .join('；');
-      lines.push(`  - 跨族群：${xs}`);
+      lines.push('  - **跨族群**');
+      for (const x of s.chain.cross_sector) {
+        let line = `    - →「${x.to_sector}」`;
+        if (x.note) line += ` — ${x.note}`;
+        if (x.episodes && x.episodes.length) line += `（${eps(x.episodes)}）`;
+        lines.push(line);
+      }
     }
   }
 
