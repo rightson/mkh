@@ -34,7 +34,7 @@
   初始 import 資料（之後可在系統後台自由增修）。**標的＝『曾提及』，非投資建議、非看多或持有。**
 - **[🔬 產業專題：光的技術鏈](https://rightson.github.io/mkh/optical/)**——Inspired by 謝孟恭《股癌》EP702：
   從一顆 800G 光模組拆解 DSP → Driver → EML → 光學對準 → PD → TIA 的技術鏈，往上游走到磷化銦材料、
-  往下游攤成產業鏈地圖，並解析「65% 美國 BOM」傳聞。原始檔在 [`docs/optical/`](docs/optical/index.html)
+  附逐項 BOM、毛利階梯、產品×零件矩陣、各環節供應商與台廠總表，並解析「65% 美國 BOM」傳聞。原始檔在 [`docs/optical/`](docs/optical/index.html)
   （GitHub Pages：main 分支 `/docs` 資料夾）。
 
 ## 分類框架
