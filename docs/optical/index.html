@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>光的技術鏈</title>
+<meta name="description" content="從一顆 800G 光模組拆解 AI 資料中心的光通訊技術鏈與產業鏈：DSP、Driver、EML、PD、TIA、光學對準，到上游磷化銦與中游組裝版圖，並解析 65% 美國 BOM 傳聞。Inspired by 謝孟恭《股癌》EP702。">
+<meta property="og:title" content="光的技術鏈：從一顆 800G 光模組看懂 AI 光通訊產業">
+<meta property="og:description" content="技術 × 產業鏈拆解。Inspired by 謝孟恭《股癌》EP702。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f6f2; --surface:#ffffff; --surface-2:#efede6; --ink:#1b1d22; --ink-2:#4a4f5a; --ink-3:#7b808b;
+  --line:#dcd9cf; --accent:#0b7a75; --accent-2:#d0642a; --accent-soft:#d9efed; --warn-soft:#fbeadf;
+  --us:#2f5fb3; --jp:#b0396b; --tw:#0b7a75; --cn:#c0392b; --eu:#7a5bb5;
+  --tx:#d0642a; --rx:#2f5fb3; --dsp:#7a5bb5;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 4px 16px rgba(0,0,0,.05);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#121417; --surface:#1a1d22; --surface-2:#22262d; --ink:#e9e7e1; --ink-2:#b5b8bf; --ink-3:#868a93;
+    --line:#2f343c; --accent:#3cc2b9; --accent-2:#f08a4f; --accent-soft:#163a38; --warn-soft:#3a2518;
+    --us:#6f9cf0; --jp:#e07aa6; --tw:#3cc2b9; --cn:#f07466; --eu:#ad92e8;
+    --tx:#f08a4f; --rx:#6f9cf0; --dsp:#ad92e8;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.3);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121417; --surface:#1a1d22; --surface-2:#22262d; --ink:#e9e7e1; --ink-2:#b5b8bf; --ink-3:#868a93;
+  --line:#2f343c; --accent:#3cc2b9; --accent-2:#f08a4f; --accent-soft:#163a38; --warn-soft:#3a2518;
+  --us:#6f9cf0; --jp:#e07aa6; --tw:#3cc2b9; --cn:#f07466; --eu:#ad92e8;
+  --tx:#f08a4f; --rx:#6f9cf0; --dsp:#ad92e8;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.3);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC",system-ui,-apple-system,"PingFang TC","Microsoft JhengHei",sans-serif;line-height:1.85;font-size:17px;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-underline-offset:3px}
+.wrap{max-width:860px;margin:0 auto;padding:0 16px}
+header.hero{padding:56px 0 32px;border-bottom:1px solid var(--line)}
+.kicker{font-size:13px;letter-spacing:.12em;color:var(--accent);font-weight:700;text-transform:uppercase}
+h1{font-size:clamp(30px,5.4vw,46px);line-height:1.25;margin:10px 0 14px;font-weight:900;letter-spacing:-.01em}
+.sub{font-size:18px;color:var(--ink-2);margin:0 0 22px}
+.credit{display:flex;gap:12px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:14px 16px;box-shadow:var(--shadow);font-size:15px;line-height:1.7}
+.credit b{color:var(--ink)}
+.credit .mic{font-size:22px;line-height:1}
+.meta{font-size:13px;color:var(--ink-3);margin-top:14px}
+nav.toc{margin:28px 0 8px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px;font-size:15px}
+nav.toc ol{margin:6px 0 0;padding-left:22px;columns:2;column-gap:28px}
+nav.toc li{break-inside:avoid;margin:2px 0}
+@media (max-width:600px){nav.toc ol{columns:1}}
+h2{font-size:clamp(23px,3.6vw,29px);line-height:1.35;margin:60px 0 14px;font-weight:900;scroll-margin-top:16px}
+h2 .no{color:var(--accent);font-family:"JetBrains Mono",monospace;font-size:.75em;margin-right:8px;vertical-align:2px}
+h3{font-size:19px;margin:30px 0 8px;font-weight:700}
+p{margin:12px 0}
+.lead{font-size:18.5px;color:var(--ink-2)}
+.tag{display:inline-block;font-size:11.5px;font-weight:700;padding:1px 7px;border-radius:999px;vertical-align:2px;margin-right:4px;white-space:nowrap}
+.tag.mk{background:var(--accent-soft);color:var(--accent)}
+.tag.add{background:var(--surface-2);color:var(--ink-2);border:1px solid var(--line)}
+.tag.inf{background:var(--warn-soft);color:var(--accent-2)}
+.legend-tags{font-size:14px;color:var(--ink-2);background:var(--surface);border:1px dashed var(--line);border-radius:10px;padding:10px 14px;margin:18px 0}
+.tldr{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:6px 20px 10px;box-shadow:var(--shadow)}
+.tldr ol{padding-left:20px;margin:10px 0}
+.tldr li{margin:8px 0}
+blockquote{margin:18px 0;padding:10px 18px;border-left:3px solid var(--accent-2);background:var(--surface);border-radius:0 10px 10px 0;color:var(--ink-2);font-size:16px}
+blockquote cite{display:block;font-style:normal;font-size:13px;color:var(--ink-3);margin-top:4px}
+figure{margin:24px 0;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;box-shadow:var(--shadow)}
+figcaption{font-size:13.5px;color:var(--ink-3);margin-top:10px;line-height:1.6}
+svg text{font-family:"Noto Sans TC",system-ui,sans-serif}
+.tbl{overflow-x:auto;margin:18px 0;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14.5px;line-height:1.6;min-width:640px}
+th,td{padding:10px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+th{background:var(--surface-2);font-weight:700;font-size:13.5px;color:var(--ink-2);white-space:nowrap}
+tr:last-child td{border-bottom:none}
+td.c{white-space:nowrap;font-weight:700}
+.flag{display:inline-block;font-size:11px;font-weight:700;padding:0 5px;border-radius:4px;margin:1px 2px 1px 0;color:#fff;white-space:nowrap}
+.f-us{background:var(--us)}.f-jp{background:var(--jp)}.f-tw{background:var(--tw)}.f-cn{background:var(--cn)}.f-eu{background:var(--eu)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:18px 0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow)}
+.card h4{margin:0 0 6px;font-size:16px}
+.card p{margin:6px 0;font-size:15px;color:var(--ink-2);line-height:1.7}
+.card.win{border-top:4px solid var(--tw)}.card.lose{border-top:4px solid var(--cn)}.card.neu{border-top:4px solid var(--ink-3)}
+.bar{display:flex;height:44px;border-radius:8px;overflow:hidden;font-size:13.5px;font-weight:700;color:#fff;margin:8px 0}
+.bar div{display:flex;align-items:center;justify-content:center;padding:0 8px;text-align:center;line-height:1.2}
+.layers{display:flex;flex-direction:column;gap:8px}
+.layer{display:grid;grid-template-columns:96px 1fr;gap:12px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--bg);font-size:14.5px;line-height:1.65}
+.layer.core{border:2px solid var(--us)}.layer.asm{border:2px solid var(--cn)}
+.layer .ln{font-weight:900;color:var(--ink-2)}
+.muted{color:var(--ink-3)}
+@media (max-width:520px){.layer{grid-template-columns:1fr;gap:2px}}
+.bar{flex-wrap:nowrap}@media (max-width:600px){.bar{height:auto;min-height:44px;font-size:12px}.bar div{padding:6px}}
+.svgx{overflow-x:auto}.svgx svg{min-width:640px;display:block}
+.callout{background:var(--warn-soft);border-radius:10px;padding:12px 16px;font-size:15.5px;margin:18px 0}
+.callout b{color:var(--accent-2)}
+.steps{counter-reset:s;list-style:none;padding:0}
+.steps li{counter-increment:s;position:relative;padding:4px 0 4px 40px;margin:10px 0}
+.steps li::before{content:counter(s);position:absolute;left:0;top:6px;width:26px;height:26px;border-radius:50%;background:var(--accent);color:var(--bg);font-weight:900;font-size:14px;display:flex;align-items:center;justify-content:center}
+dl.gl{display:grid;grid-template-columns:max-content 1fr;gap:6px 18px;font-size:15px}
+dl.gl dt{font-weight:700;font-family:"JetBrains Mono",monospace;font-size:14px;color:var(--accent)}
+dl.gl dd{margin:0;color:var(--ink-2)}
+@media (max-width:560px){dl.gl{grid-template-columns:1fr}dl.gl dd{margin-bottom:8px}}
+footer{margin:70px 0 0;padding:28px 0 60px;border-top:1px solid var(--line);font-size:14px;color:var(--ink-2)}
+footer ul{padding-left:20px}
+.theme-btn{position:fixed;right:14px;bottom:14px;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:7px 12px;font-size:13px;cursor:pointer;box-shadow:var(--shadow);font-family:inherit}
+code{font-family:"JetBrains Mono",monospace;font-size:.88em;background:var(--surface-2);padding:1px 5px;border-radius:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">Optical Interconnect · Tech × Supply Chain</div>
+  <h1>光的技術鏈：<br>從一顆 800G 光模組，看懂 AI 光通訊產業</h1>
+  <p class="sub">把光模組從裡到外拆開：電怎麼變成光、光怎麼回到電，每一顆零件由誰做、誰賺最多。最後用這張地圖讀懂 2026 年 10 月的「65% 美國 BOM」傳聞。</p>
+  <div class="credit">
+    <span class="mic" aria-hidden="true">🎙</span>
+    <div><b>Inspired by 謝孟恭《股癌》EP702〈抽不到Radiohead與光模組禁令〉</b>（2026-10-03）。
+      本文以該集「摩根士丹利的光模組傳聞：65% 美國 BOM」段落的光模組拆解為骨幹，搭配 EP699〈DSP 漲價〉等前集內容，再補上公開的產業與技術背景整理而成。
+      <br><a href="https://player.soundon.fm/p/954689a5-3096-43a4-a80b-7810b219cef3/episodes/42301381-6003-4b54-a28d-290a3fd2e258" rel="noopener">▶ 收聽原集（SoundOn）</a> ·
+      <a href="https://whatmkreallysaid.com/episode.html?file=EP702" rel="noopener">逐字稿（whatmkreallysaid.com）</a></div>
+  </div>
+  <p class="meta">聽眾整理之非官方二次詮釋，非謝孟恭或《股癌》官方產出，亦非投資建議。· 整理日期 2026-10-07</p>
+</header>
+
+<nav class="toc" aria-label="目錄">
+  <b>目錄</b>
+  <ol>
+    <li><a href="#tldr">三分鐘重點</a></li>
+    <li><a href="#why">為什麼 AI 需要光</a></li>
+    <li><a href="#module">拆開一顆 800G 光模組</a></li>
+    <li><a href="#parts">逐顆零件：功能、門檻、供應商</a></li>
+    <li><a href="#upstream">往上游走：雷射的材料鏈</a></li>
+    <li><a href="#arch">架構路線：DSP、LPO、CPO、OCS</a></li>
+    <li><a href="#map">產業鏈地圖與價值分配</a></li>
+    <li><a href="#ban">EP702 事件：65% 美國 BOM 傳聞</a></li>
+    <li><a href="#taiwan">台廠的位置</a></li>
+    <li><a href="#mindset">節目裡的思考框架</a></li>
+    <li><a href="#watch">後續觀察清單</a></li>
+    <li><a href="#glossary">名詞表</a></li>
+  </ol>
+</nav>
+
+<div class="legend-tags">
+  標示說明：<span class="tag mk">節目</span>謝孟恭在節目中的說法（附集數）　<span class="tag add">補充</span>本文補充的公開技術／產業背景　<span class="tag inf">推論</span>本文的推論或判讀，請自行驗證。
+</div>
+
+<!-- ───────────────────────── TL;DR ───────────────────────── -->
+<h2 id="tldr"><span class="no">00</span>三分鐘重點</h2>
+<div class="tldr">
+<ol>
+  <li><b>光模組是「電→光→電」的翻譯機。</b>發射端：DSP → Driver → 雷射（如 EML）→ 透鏡／隔離器／光纖陣列；接收端：光纖陣列／透鏡 → PD → TIA → DSP。<span class="tag mk">節目 EP702</span></li>
+  <li><b>價值高度集中在「晶片」。</b>DSP、Driver、TIA、雷射晶片這些高毛利、有核心 know-how 的環節多在美系手上，摩根士丹利估 800G 模組約 60 幾 % BOM 本來就是美國元件；剩下約三成由一大群做被動光學、機構件、PCB、外殼的台／日／中廠分食。<span class="tag mk">節目 EP702</span></li>
+  <li><b>組裝在中國。</b>全球光模組組裝能量約六到七成以上在中國，這是「直接封殺」不可行的原因。<span class="tag mk">節目 EP702</span></li>
+  <li><b>65% 美國 BOM 傳聞＝「原狀重申」。</b>它短期沒有立刻打到誰，真正壓制的是中國未來用自家 DSP／雷射去 cost down 的路；直接受惠是美系晶片商，核心受害是中國雷射廠，其他（含台廠轉單）偏中性、屬想像題。報告本身是傳聞，不宜過度解讀。<span class="tag mk">節目 EP702</span></li>
+  <li><b>不要用零和思維看技術轉換。</b>CPO／LPO 長期可能減少對 DSP 的需求，但放量需要數年；過渡期 DSP 反而缺貨漲價。<span class="tag mk">節目 EP699</span></li>
+  <li><b>一切回到成本。</b>技術可行不等於商業可行；連最願意花錢的企業主都踩煞車時，供應鏈的想像「不能想得太快」。<span class="tag mk">節目 EP702</span></li>
+</ol>
+</div>
+
+<!-- ───────────────────────── WHY ───────────────────────── -->
+<h2 id="why"><span class="no">01</span>為什麼 AI 需要光</h2>
+<p class="lead">AI 訓練與推論把成千上萬顆 GPU／ASIC 串成一台「巨型電腦」，瓶頸從單顆晶片的算力，轉移到晶片之間的資料搬運。</p>
+<p><span class="tag add">補充</span>資料中心內的互聯大致分兩層：<b>scale-up</b>（同一機櫃內 GPU 彼此直連，距離短、要求極低延遲）與 <b>scale-out</b>（機櫃與機櫃、叢集與叢集之間，經由交換器組成網路）。電訊號在銅線上跑得越快，衰減越嚴重：速率每翻倍，銅線可用距離大約就縮短一截。於是距離一拉長，就必須把電轉成光，用光纖傳輸——光幾乎不受距離內的損耗與電磁干擾影響。</p>
+<p><span class="tag mk">節目 EP564／EP667／EP539</span>謝孟恭的看法是「光銅並行」：約 72 顆 GPU 以內的短距 scale-up 用銅較有效率，長距走光，兩者不是你死我活。</p>
+<p><span class="tag add">補充</span>交換器與網卡的連接埠速率大約每兩年翻倍：400G → 800G（目前主流）→ 1.6T（正在放量）→ 3.2T（下一代）。每一次翻倍，光模組的需求數量與單價都會一起往上推，這是光通訊成為 AI 硬體主線之一的根本原因。</p>
+
+<!-- ───────────────────────── MODULE ───────────────────────── -->
+<h2 id="module"><span class="no">02</span>拆開一顆 800G 光模組</h2>
+<p>EP702 用的範例是<b>中際旭創（Innolight）的 800G EML DR8</b>：外界拆解其 BOM，單顆 ASP 約 <b>315 美元</b>。<span class="tag mk">節目 EP702</span> 謝孟恭在節目上的畫法是：左邊是交換器或 GPU 伺服器，中間畫一個方格代表光模組，右邊接光纖。下圖把這段口述畫成訊號路徑。</p>
+
+<figure>
+<div class="svgx"><svg viewBox="0 0 820 380" width="100%" role="img" aria-labelledby="svgT svgD">
+  <title id="svgT">800G 光模組訊號路徑</title>
+  <desc id="svgD">發射路徑：主機電訊號進入 DSP，到 Driver，驅動 EML 雷射，經透鏡、隔離器與光纖陣列送出光。接收路徑：光經光纖陣列與透鏡進入 PD 轉成電流，TIA 放大後回到 DSP，再送回主機。</desc>
+  <defs>
+    <marker id="aTx" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--tx)"/></marker>
+    <marker id="aRx" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--rx)"/></marker>
+  </defs>
+  <!-- host -->
+  <rect x="8" y="80" width="96" height="220" rx="10" fill="var(--surface-2)" stroke="var(--line)"/>
+  <text x="56" y="180" text-anchor="middle" font-size="14" font-weight="700" fill="var(--ink)">交換器</text>
+  <text x="56" y="200" text-anchor="middle" font-size="14" font-weight="700" fill="var(--ink)">GPU 伺服器</text>
+  <text x="56" y="222" text-anchor="middle" font-size="11.5" fill="var(--ink-3)">（電）</text>
+  <!-- module boundary -->
+  <rect x="130" y="34" width="560" height="312" rx="14" fill="none" stroke="var(--ink-3)" stroke-dasharray="6 5"/>
+  <text x="140" y="56" font-size="13" font-weight="700" fill="var(--ink-2)">800G 光模組（pluggable transceiver）</text>
+  <!-- DSP -->
+  <rect x="150" y="90" width="96" height="200" rx="10" fill="var(--dsp)" opacity=".16" stroke="var(--dsp)"/>
+  <text x="198" y="182" text-anchor="middle" font-size="18" font-weight="900" fill="var(--dsp)">DSP</text>
+  <text x="198" y="204" text-anchor="middle" font-size="11.5" fill="var(--ink-2)">清洗訊號</text>
+  <text x="198" y="220" text-anchor="middle" font-size="11.5" fill="var(--ink-2)">重定時</text>
+  <!-- TX row -->
+  <text x="270" y="100" font-size="12" font-weight="700" fill="var(--tx)">發射 TX　電 → 光</text>
+  <rect x="272" y="112" width="92" height="52" rx="8" fill="var(--surface)" stroke="var(--tx)"/>
+  <text x="318" y="135" text-anchor="middle" font-size="14" font-weight="700" fill="var(--ink)">Driver</text>
+  <text x="318" y="153" text-anchor="middle" font-size="11" fill="var(--ink-3)">放大以驅動雷射</text>
+  <rect x="388" y="112" width="104" height="52" rx="8" fill="var(--surface)" stroke="var(--tx)"/>
+  <text x="440" y="135" text-anchor="middle" font-size="14" font-weight="700" fill="var(--ink)">EML 雷射 ×8</text>
+  <text x="440" y="153" text-anchor="middle" font-size="11" fill="var(--ink-3)">電訊號調變成光</text>
+  <!-- RX row -->
+  <text x="270" y="286" font-size="12" font-weight="700" fill="var(--rx)">接收 RX　光 → 電</text>
+  <rect x="272" y="216" width="92" height="52" rx="8" fill="var(--surface)" stroke="var(--rx)"/>
+  <text x="318" y="239" text-anchor="middle" font-size="14" font-weight="700" fill="var(--ink)">TIA</text>
+  <text x="318" y="257" text-anchor="middle" font-size="11" fill="var(--ink-3)">電流→電壓放大</text>
+  <rect x="388" y="216" width="104" height="52" rx="8" fill="var(--surface)" stroke="var(--rx)"/>
+  <text x="440" y="239" text-anchor="middle" font-size="14" font-weight="700" fill="var(--ink)">PD 光偵測器</text>
+  <text x="440" y="257" text-anchor="middle" font-size="11" fill="var(--ink-3)">光轉成電流</text>
+  <!-- optics -->
+  <rect x="518" y="90" width="150" height="200" rx="10" fill="var(--accent-soft)" stroke="var(--accent)"/>
+  <text x="593" y="140" text-anchor="middle" font-size="14" font-weight="700" fill="var(--ink)">光學次組件</text>
+  <text x="593" y="166" text-anchor="middle" font-size="12" fill="var(--ink-2)">透鏡 Lens</text>
+  <text x="593" y="186" text-anchor="middle" font-size="12" fill="var(--ink-2)">隔離器 Isolator</text>
+  <text x="593" y="206" text-anchor="middle" font-size="12" fill="var(--ink-2)">光纖陣列 FA／FAU</text>
+  <text x="593" y="240" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--accent)">★ 對準 know-how</text>
+  <!-- fiber -->
+  <rect x="712" y="80" width="100" height="220" rx="10" fill="var(--surface-2)" stroke="var(--line)"/>
+  <text x="762" y="186" text-anchor="middle" font-size="14" font-weight="700" fill="var(--ink)">光纖</text>
+  <text x="762" y="206" text-anchor="middle" font-size="11.5" fill="var(--ink-3)">（光）</text>
+  <!-- arrows TX -->
+  <line x1="104" y1="138" x2="148" y2="138" stroke="var(--tx)" stroke-width="2.5" marker-end="url(#aTx)"/>
+  <line x1="246" y1="138" x2="270" y2="138" stroke="var(--tx)" stroke-width="2.5" marker-end="url(#aTx)"/>
+  <line x1="364" y1="138" x2="386" y2="138" stroke="var(--tx)" stroke-width="2.5" marker-end="url(#aTx)"/>
+  <line x1="492" y1="138" x2="516" y2="138" stroke="var(--tx)" stroke-width="2.5" marker-end="url(#aTx)"/>
+  <line x1="668" y1="138" x2="710" y2="138" stroke="var(--tx)" stroke-width="2.5" marker-end="url(#aTx)"/>
+  <!-- arrows RX -->
+  <line x1="710" y1="242" x2="670" y2="242" stroke="var(--rx)" stroke-width="2.5" marker-end="url(#aRx)"/>
+  <line x1="518" y1="242" x2="494" y2="242" stroke="var(--rx)" stroke-width="2.5" marker-end="url(#aRx)"/>
+  <line x1="388" y1="242" x2="366" y2="242" stroke="var(--rx)" stroke-width="2.5" marker-end="url(#aRx)"/>
+  <line x1="272" y1="242" x2="248" y2="242" stroke="var(--rx)" stroke-width="2.5" marker-end="url(#aRx)"/>
+  <line x1="150" y1="242" x2="106" y2="242" stroke="var(--rx)" stroke-width="2.5" marker-end="url(#aRx)"/>
+  <text x="410" y="372" text-anchor="middle" font-size="12" fill="var(--ink-3)">口訣（節目）：出去是 Driver，回來是 TIA，都要經過 DSP。</text>
+</svg></div>
+<figcaption>依 EP702 口述重繪的 800G 光模組訊號路徑。模組內另有 PCB、MCU、溫控、金屬外殼等未畫出的元件。手機可左右滑動檢視。</figcaption>
+</figure>
+
+<h3>發射（TX）：電 → 光</h3>
+<ol class="steps">
+  <li><b>DSP</b>：交換器送進來的高速電訊號，先由 DSP（數位訊號處理器）「洗乾淨、重定時」。收發都靠同一顆。<span class="tag mk">節目 EP702</span></li>
+  <li><b>Driver</b>：把訊號放大到足以驅動雷射的程度。<span class="tag mk">節目 EP702</span></li>
+  <li><b>雷射（EML）</b>：把電訊號「打」成光。EML 是其中一種選擇。節目口述為 8 顆雷射。<span class="tag mk">節目 EP702</span><br>
+    <span class="tag add">補充</span>規格上，DR8 是 8 條平行通道、每通道 100G PAM4（8×100G＝800G），每顆雷射對應一對光纖；以 4 個波長多工的是 FR4 類規格（2×FR4 同樣湊成 800G）。</li>
+  <li><b>透鏡＋隔離器＋光纖陣列</b>：把光耦合進光纖送出。這裡有一個常被低估的門檻——<b>把光對準</b>。市場在討論大立光、FAU 之類的題材，本質就是「誰能把光對好」。聽起來不難，但它很難。<span class="tag mk">節目 EP702</span></li>
+</ol>
+<h3>接收（RX）：光 → 電</h3>
+<ol class="steps">
+  <li><b>光纖陣列＋透鏡</b>：光從光纖回來，同樣要精準耦合。<span class="tag mk">節目 EP702</span></li>
+  <li><b>PD（光偵測器）</b>：把光變成電流。<span class="tag mk">節目 EP702</span></li>
+  <li><b>TIA（轉阻放大器）</b>：把微弱的電流放大。<span class="tag mk">節目 EP702</span></li>
+  <li><b>DSP</b>：再處理乾淨後送回伺服器。<span class="tag mk">節目 EP702</span></li>
+</ol>
+
+<h3>什麼是 DSP？為什麼速率越高越需要它</h3>
+<p><span class="tag mk">節目 EP699</span>任何隨時間變化的東西都是訊號：聲音是氣壓起伏、無線電是電磁波起伏、光是明暗起伏。真實世界的訊號是連續曲線，晶片只認 0 與 1，所以要每隔一段時間量一次曲線高度（取樣，ADC）、用數學去掉雜訊、放大、解壓縮，再用 DAC 轉回類比。<b>DSP 就是在這中間「算數學」的那顆晶片</b>——像產線上挑掉壞食材的品管員，而且要盡量省工、省電。NPU 可以視為 DSP 的後代：把乘加器排成矩陣引擎，就成了 AI 推論晶片（如 Qualcomm Hexagon）。</p>
+<p><span class="tag mk">節目 EP699</span>在光模組裡，10G～100G 不一定要用 DSP；400G 已很常見；<b>800G 是標配；1.6T 基本上是必需</b>——除非改走 LPO 或 CPO。</p>
+<p><span class="tag add">補充</span>原因是 400G 以後普遍採用 PAM4 調變（每個符號 4 個電位、帶 2 bit），訊號眼圖更小、對雜訊更敏感，需要 DSP 做等化、時脈恢復與前向糾錯，才能維持可接受的位元錯誤率。</p>
+
+<!-- ───────────────────────── PARTS ───────────────────────── -->
+<h2 id="parts"><span class="no">03</span>逐顆零件：功能、門檻、供應商</h2>
+<p>下表把模組內每個環節攤開。「美系屬性」是理解 65% BOM 傳聞的關鍵欄位。供應商欄位以節目提及者為主，<span class="tag add">補充</span>者為公開資訊整理，非完整名單。</p>
+<div class="tbl">
+<table>
+<thead><tr><th>環節</th><th>做什麼</th><th>技術門檻</th><th>代表供應商</th><th>美系屬性</th></tr></thead>
+<tbody>
+<tr><td class="c">DSP</td><td>等化、重定時、糾錯，收發共用</td><td>先進製程（3／5 奈米級），<b>與 GPU 共用產能</b>，所以缺貨、lead time 拉長<span class="tag mk">EP702</span></td>
+<td><span class="flag f-us">US</span>Broadcom、Marvell、MaxLinear<span class="tag mk">EP699/702</span><br><span class="flag f-tw">TW</span>達發（聯發科旗下，台系唯一）<span class="tag mk">EP702</span></td><td>高（核心）</td></tr>
+<tr><td class="c">Driver</td><td>放大電訊號以驅動雷射</td><td>高速類比／混合訊號設計</td><td><span class="flag f-us">US</span>Semtech<span class="tag mk">EP702</span>、MACOM<span class="tag add">補充</span>；亦常與 DSP 整合</td><td>高</td></tr>
+<tr><td class="c">雷射晶片</td><td>電轉光（EML，或 CW 雷射＋矽光調變器）</td><td>三五族材料、磊晶、可靠度；高速 EML 供給長期吃緊</td><td><span class="flag f-us">US</span>Lumentum、Coherent、Broadcom<span class="tag mk">EP702</span><br><span class="flag f-jp">JP</span>三菱電機、住友電工<span class="tag add">補充</span><br><span class="flag f-tw">TW</span>聯亞（InP 磊晶／雷射）<span class="tag mk">EP619</span></td><td>高</td></tr>
+<tr><td class="c">PD</td><td>光轉電流</td><td>相對成熟，但高速 PD 仍有門檻</td><td>美、日、台、中皆有<span class="tag add">補充</span></td><td>中</td></tr>
+<tr><td class="c">TIA</td><td>電流→電壓放大</td><td>低雜訊高速類比設計</td><td><span class="flag f-us">US</span>Semtech、MACOM 等<span class="tag add">補充</span>；亦常與 DSP 整合</td><td>高</td></tr>
+<tr><td class="c">被動光學</td><td>透鏡、隔離器、濾波片、光纖陣列（FA／FAU）</td><td><b>光的對準與耦合</b>，良率與自動化設備是 know-how<span class="tag mk">EP702</span></td><td><span class="flag f-tw">TW</span>上詮（FAU，與台積電合作）<span class="tag mk">EP451/641</span><br><span class="flag f-cn">CN</span><span class="flag f-jp">JP</span>多家被動元件廠<span class="tag add">補充</span></td><td>低（三成那一塊）</td></tr>
+<tr><td class="c">機構件／PCB／外殼</td><td>承載、散熱、電連接</td><td>精密加工、成本控制</td><td>台、日、中廠<span class="tag mk">EP702</span></td><td>低</td></tr>
+<tr><td class="c">模組組裝</td><td>把上述元件整合、校準、測試</td><td>量產規模、自動化、客戶認證</td><td><span class="flag f-cn">CN</span>中際旭創<span class="tag mk">EP702</span>、新易盛<span class="tag add">補充</span><br><span class="flag f-us">US</span>Coherent、Fabrinet（泰國代工）<span class="tag mk">EP451/584</span></td><td>—（全球 6–7 成以上在中國）<span class="tag mk">EP702</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<figure>
+<div style="font-size:14px;font-weight:700;margin-bottom:4px">800G 光模組 BOM 的「國籍」結構（節目引述摩根士丹利）</div>
+<div class="bar" role="img" aria-label="約 65% 為美系元件，約 35% 為台日中廠">
+  <div style="width:65%;background:var(--us)">≈ 60 幾 %｜美系：DSP、Driver、TIA、雷射</div>
+  <div style="width:35%;background:var(--ink-3)">≈ 35%｜台日中：被動光學、機構、PCB、外殼</div>
+</div>
+<figcaption>示意圖，比例取自 EP702 引述的報告口徑（非矽光路線的 800G 模組）。高毛利、有核心 know-how 的部分在左；低毛利、由「一大堆廠商去分」的部分在右。</figcaption>
+</figure>
+
+<!-- ───────────────────────── UPSTREAM ───────────────────────── -->
+<h2 id="upstream"><span class="no">04</span>往上游走：雷射的材料鏈</h2>
+<p>模組裡最「物理」的一段是雷射。它不是矽做的，而是三五族化合物半導體。</p>
+<figure>
+<div class="svgx"><svg viewBox="0 0 820 150" width="100%" role="img" aria-label="雷射材料鏈：原料、基板、磊晶、晶片製造、封裝、模組">
+  <g font-size="13" text-anchor="middle">
+    <rect x="6" y="30" width="118" height="70" rx="10" fill="var(--surface-2)" stroke="var(--line)"/>
+    <text x="65" y="60" font-weight="700" fill="var(--ink)">原料</text><text x="65" y="80" font-size="11.5" fill="var(--ink-3)">銦、鎵、砷、磷</text>
+    <rect x="142" y="30" width="118" height="70" rx="10" fill="var(--surface-2)" stroke="var(--line)"/>
+    <text x="201" y="60" font-weight="700" fill="var(--ink)">基板</text><text x="201" y="80" font-size="11.5" fill="var(--ink-3)">InP／GaAs 晶圓</text>
+    <rect x="278" y="30" width="118" height="70" rx="10" fill="var(--surface-2)" stroke="var(--line)"/>
+    <text x="337" y="60" font-weight="700" fill="var(--ink)">磊晶</text><text x="337" y="80" font-size="11.5" fill="var(--ink-3)">千層派式堆疊</text>
+    <rect x="414" y="30" width="118" height="70" rx="10" fill="var(--surface-2)" stroke="var(--line)"/>
+    <text x="473" y="60" font-weight="700" fill="var(--ink)">雷射晶片</text><text x="473" y="80" font-size="11.5" fill="var(--ink-3)">EML／CW／DML</text>
+    <rect x="550" y="30" width="118" height="70" rx="10" fill="var(--surface-2)" stroke="var(--line)"/>
+    <text x="609" y="60" font-weight="700" fill="var(--ink)">封裝</text><text x="609" y="80" font-size="11.5" fill="var(--ink-3)">COC／TO／OSA</text>
+    <rect x="686" y="30" width="128" height="70" rx="10" fill="var(--accent-soft)" stroke="var(--accent)"/>
+    <text x="750" y="60" font-weight="700" fill="var(--ink)">光模組</text><text x="750" y="80" font-size="11.5" fill="var(--ink-3)">組裝・測試</text>
+  </g>
+  <g stroke="var(--ink-3)" stroke-width="2"><line x1="124" y1="65" x2="142" y2="65"/><line x1="260" y1="65" x2="278" y2="65"/><line x1="396" y1="65" x2="414" y2="65"/><line x1="532" y1="65" x2="550" y2="65"/><line x1="668" y1="65" x2="686" y2="65"/></g>
+  <text x="65" y="128" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--cn)">中國掌握多數原料</text>
+  <text x="201" y="128" text-anchor="middle" font-size="11.5" fill="var(--ink-3)">AXT、Coherent、住友</text>
+  <text x="337" y="128" text-anchor="middle" font-size="11.5" fill="var(--ink-3)">聯亞、IQE、穩懋代工</text>
+  <text x="473" y="128" text-anchor="middle" font-size="11.5" fill="var(--ink-3)">Lumentum、Coherent…</text>
+  <text x="609" y="128" text-anchor="middle" font-size="11.5" fill="var(--ink-3)">台廠可承接之一</text>
+  <text x="750" y="128" text-anchor="middle" font-size="11.5" fill="var(--ink-3)">6–7 成在中國</text>
+</svg></div>
+<figcaption>雷射晶片的上游路徑。下方為節目提及或公開資料中的代表廠商。手機可左右滑動檢視。</figcaption>
+</figure>
+<ul>
+  <li><b>基板</b>：<span class="tag mk">EP641</span>砷化鎵基板廠 AXT 是謝孟恭的美股光通布局之一；<span class="tag mk">EP584</span>Coherent 在德州雪曼的六吋磷化銦（InP）產線投產，屬擴產。<span class="tag add">補充</span>高速 EML 主要用 InP；VCSEL 等短距雷射多用 GaAs。</li>
+  <li><b>磊晶</b>：<span class="tag mk">EP619</span>磊晶就像千層派，在基板上一層層長出三五族材料、讓它具備發光特性，是雷射晶片的上游；光通訊帶動三五族磊晶與代工廠（如穩懋）大漲。</li>
+  <li><b>材料的地緣風險</b>：<span class="tag mk">EP702</span>最上游的材料掌握在中國，美方短期難以自建，若「趕盡殺絕」，對方反制就是大家一起下去——這是禁令不會推得太快的原因之一。<span class="tag add">補充</span>中國近年已對鎵、鍺等關鍵礦產實施出口管制，可作為這個論點的佐證。</li>
+</ul>
+
+<!-- ───────────────────────── ARCH ───────────────────────── -->
+<h2 id="arch"><span class="no">05</span>架構路線：DSP、LPO、CPO、OCS</h2>
+<p>光模組的「形狀」本身也在演化，而每一條路線都會重新分配上面那張表的價值。</p>
+<div class="tbl">
+<table>
+<thead><tr><th>路線</th><th>做法</th><th>好處</th><th>代價／問題</th><th>對誰影響最大</th></tr></thead>
+<tbody>
+<tr><td class="c">Pluggable＋DSP</td><td>今天的主流：可插拔模組內含 DSP</td><td>成熟、易維修、可互換</td><td>DSP 耗電、成本高</td><td>DSP 廠受惠；目前缺貨漲價 15–20%<span class="tag mk">EP699</span></td></tr>
+<tr><td class="c">LPO</td><td>Linear Pluggable：拿掉模組內 DSP，靠交換器端 SerDes 驅動</td><td>省電、降成本、低延遲</td><td>距離與互通性受限，對主機端訊號品質要求高<span class="tag add">補充</span></td><td>DSP 需求可能被減少<span class="tag mk">EP699</span></td></tr>
+<tr><td class="c">CPO</td><td>Co-Packaged Optics：光引擎與交換器／運算晶片共同封裝</td><td>電路徑極短，功耗大降</td><td>封裝是最大瓶頸，維修性差，量產時程長<span class="tag mk">EP466/618/641</span></td><td>可插拔模組廠可能受害<span class="tag mk">EP466/539</span>；封裝與 FAU 受惠</td></tr>
+<tr><td class="c">OCS</td><td>全光交換：以 MEMS 鏡面直接切換光路，免光電轉換</td><td>效率極佳</td><td>適用拓撲特定，生態系較封閉</td><td>Google 主導；Lumentum、Coherent<span class="tag mk">EP584/618</span></td></tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+  有些人的思維是偏向零和，覺得這個起來、那個就要死。但很常見的是，那個說要死的東西會持續放量，甚至賺得比大家想像的還久，接著才進入下一個階段；老玩家也可能瀟灑轉身，變成跟光相關的廠商。
+  <cite>— 謝孟恭，EP699（整理自逐字稿）</cite>
+</blockquote>
+<p><span class="tag mk">節目 EP699</span>他的推論鏈：CPO 全面放量、在市佔中占比很高是「幾年之後的事」；屆時 DSP 廠可能把東西變成 chiplet 或以 SerDes IP 形式繼續取得價值。在那之前，400G→800G→1.6T 的過渡期裡，DSP 仍有持續表現的空間——與 CCL 降規的爭論同一個邏輯：太早預測長期，「長遠來看，我們都死了」。</p>
+
+<!-- ───────────────────────── MAP ───────────────────────── -->
+<h2 id="map"><span class="no">06</span>產業鏈地圖與價值分配</h2>
+<p>把技術鏈攤平成產業鏈，可以看到一個清楚的「微笑」：兩端（晶片與材料、系統客戶）掌握議價力，中間的組裝與被動件量大但毛利薄。</p>
+<figure>
+<div class="layers">
+  <div class="layer"><div class="ln">上游材料</div><div class="lc">InP／GaAs 基板・磊晶：AXT · Coherent · 住友 · 聯亞 · IQE · 穩懋（代工）<br><span class="muted">原料（銦、鎵等）：中國主導</span></div></div>
+  <div class="layer core"><div class="ln">核心晶片</div><div class="lc">DSP：Broadcom · Marvell · MaxLinear · 達發<br>雷射：Lumentum · Coherent · Broadcom · 三菱 · 住友<br>Driver／TIA：Semtech · MACOM</div></div>
+  <div class="layer"><div class="ln">光學・被動</div><div class="lc">透鏡・隔離器・FA／FAU・連接器・光纖：上詮 · 光聖 · Corning · 台日中多家<br><span class="muted">PCB・機構件・外殼</span></div></div>
+  <div class="layer asm"><div class="ln">模組組裝</div><div class="lc">中際旭創 · 新易盛 · Coherent · Fabrinet（代工）<br><span class="muted">台廠組裝／次組件：轉單想像</span></div></div>
+  <div class="layer"><div class="ln">系統・客戶</div><div class="lc">交換器：Broadcom Tomahawk · NVIDIA · 智邦<br>CSP：Google · Meta · Microsoft · AWS · Oracle</div></div>
+</div>
+<figcaption>由上而下為上游到下游。<b style="color:var(--us)">藍框</b>＝核心晶片，價值與議價力最高；<b style="color:var(--cn)">紅框</b>＝組裝，量大、毛利薄、集中在中國。名單為節目提及＋公開資料之代表廠商，非完整列表，亦非推薦。</figcaption>
+</figure>
+
+<h3>三個結構性事實</h3>
+<div class="grid">
+  <div class="card"><h4>① 晶片端高度集中</h4><p>800G 模組約 60 幾 % 的 BOM 是美系元件，非矽光路線尤其如此。<span class="tag mk">EP702</span></p></div>
+  <div class="card"><h4>② 組裝端高度集中</h4><p>全球光模組組裝能量約 6–7 成以上在中國。<span class="tag mk">EP702</span></p></div>
+  <div class="card"><h4>③ 客戶端高度集中</h4><p>CSP 決定規格與時程；單一大客戶（如 Google）可養活多家供應商。<span class="tag mk">EP584</span></p></div>
+</div>
+<p><span class="tag inf">推論</span>三端都集中，意味著這條鏈的議價力分配取決於「誰最難被替代」。DSP 有先進製程門檻、雷射有材料與良率門檻，組裝則可以被搬遷——這正是美方政策瞄準 BOM 而非組裝地點的邏輯。</p>
+
+<!-- ───────────────────────── BAN ───────────────────────── -->
+<h2 id="ban"><span class="no">07</span>EP702 事件：65% 美國 BOM 傳聞</h2>
+<h3>發生了什麼</h3>
+<p><span class="tag mk">節目 EP702</span>2026 年 10 月 1 日，摩根士丹利發布報告，內容偏向<b>傳聞</b>——並非美國商務部或 FCC 已白紙黑字 finalize 針對中國光通元件的條款。重點有三：</p>
+<ul>
+  <li>光收發模組（transceiver）若 <b>65% 的 BOM 價值來自美國</b>，即可持續出貨；</li>
+  <li>可能<b>不會</b>對 800G、1.6T 交換器用光收發元件做太多限縮；</li>
+  <li>要處理的是 <b>3.2T</b>，那已是幾個世代以後的東西。</li>
+</ul>
+<p>週五台美股相關族群立刻反應，DSP 相關的 Marvell、MaxLinear、Broadcom 股價走高。</p>
+
+<h3>怎麼讀：「這不就是原狀嗎？」</h3>
+<p><span class="tag mk">節目 EP702</span>謝孟恭的拆解邏輯：</p>
+<ol class="steps">
+  <li><b>先看現況</b>：最先進的光模組本來就用 Broadcom／Marvell 的 DSP、Semtech 的元件、Lumentum／Coherent 的雷射，美國占比本來就有 60 幾 %。所以「到底禁到什麼？好像也沒有禁到什麼」——它是<b>原狀重申</b>。</li>
+  <li><b>再看真正被壓制的是誰</b>：中國未來若想用自家 DSP、Driver、TIA 或光電晶片來 cost down，就會被美國占比門檻卡住。不打算自製的，本來美國占比就這麼高。</li>
+  <li><b>市場為何仍反應</b>：大家解讀為美國政府有意處理這塊，現在寬鬆可能是試水溫，之後若收緊，利益會導向美系晶片商，於是提早去賭。</li>
+  <li><b>政策意圖</b>：美國的老樣子——把毛利漂亮、有核心 know-how 的環節留在自己手上，組裝這種事外面要做也可以。</li>
+  <li><b>為何不會推太快</b>：組裝在中國，封殺等於傷自己的資料中心；上游材料在中國，逼太緊會遭反制。</li>
+</ol>
+
+<h3>誰受惠、誰受害</h3>
+<div class="grid">
+  <div class="card win"><h4>核心受惠：美系晶片商</h4><p>DSP、Driver、TIA、雷射件（Broadcom、Marvell、MaxLinear、Semtech、Lumentum、Coherent）。押注方向「很合理」。<span class="tag mk">EP702</span></p></div>
+  <div class="card lose"><h4>核心受害：中國雷射廠</h4><p>中國想用自家雷射 cost down 的路被堵；若收緊可能無法出貨。<span class="tag mk">EP702</span></p></div>
+  <div class="card neu"><h4>中性／想像：其他所有人</h4><p>台廠轉單、組裝外移都「有可能發生」，但屬間接想像的故事。<span class="tag mk">EP702</span></p></div>
+</div>
+
+<h3>一個被忽略的副作用：擋住中國的價格戰</h3>
+<p><span class="tag mk">節目 EP702</span>海外研調指出，中國正在大擴產光通關鍵零組件，可能再次「把整個價格玩壞」。若禁令要求 Non-China／美國在 BOM 中的占比，中國想捲別人也捲不到，只能捲自己和「快樂好朋友」。<span class="tag inf">推論</span>對非中系的零組件供應商而言，這可能是比轉單更實際的利多：價格保護，而非數量增加。</p>
+
+<div class="callout"><b>必要的保留：</b>這份報告本身偏向傳聞，「先大概做一些評析就好，不要太認真看待」；而 3.2T 還很遠，量產時程常有遞延，「最終不會是大家想像的這麼快」。<span class="tag mk">EP702</span></div>
+
+<!-- ───────────────────────── TAIWAN ───────────────────────── -->
+<h2 id="taiwan"><span class="no">08</span>台廠的位置</h2>
+<p>在 65% 美國 BOM 的框架下，台廠<b>不算美國</b>，因此不在直接受惠清單內。它們的機會都屬於「去中化」的第二層效應：</p>
+<div class="tbl">
+<table>
+<thead><tr><th>情境</th><th>機會在哪</th><th>性質</th></tr></thead>
+<tbody>
+<tr><td class="c">美系去中化</td><td>美系廠商擔心夜長夢多，把較便宜的機構件、光學件、甚至組裝移往台灣；EML 雷射也可能找台廠封裝，避開中國那段。美系光通廠已在法說會多次提到往東南亞或台灣發展。<span class="tag mk">EP702</span></td><td>有機會，但屬想像</td></tr>
+<tr><td class="c">DSP second source</td><td>以前美系找 second source 可能找中國；中國不能用，就找台灣。長期 promising。<span class="tag mk">EP702</span></td><td>長期故事</td></tr>
+<tr><td class="c">中國去美化</td><td>中國 DSP 設計能力不差，但拿不到 3／5 奈米先進製程；可能透過第三方找台積電投片，或在禁令前提前拉貨，台灣產生排擠效益。<span class="tag mk">EP702</span></td><td>聯想題，非直接受惠</td></tr>
+<tr><td class="c">達發（DSP）</td><td>台系唯一 DSP 業者，目前出貨鎖定 400G、每 lane 約 50–100G；3.2T 是幾個世代以後的事，不會是第一波受惠。<span class="tag mk">EP702</span></td><td>非第一波</td></tr>
+</tbody>
+</table>
+</div>
+<p><span class="tag mk">族群圖鑑</span>本 repo 的<a href="https://github.com/rightson/mkh/blob/main/catalog/族群圖鑑.md#光通訊--cpo--高速傳輸cpo光通矽光子retimerpcie-switchscale-upscale-out交換器">族群圖鑑・光通訊</a>彙整了節目歷來提及的台股光通標的，例如智邦（交換器整機）、上詮（FAU／CPO 光耦合）、聯亞（雷射／磊晶）、光聖（Google 光通鏈）、貿聯（ShuffleBox 光纖配線）、光環、聯鈞、光磊等。<b>「曾提及」不等於看多或持有。</b></p>
+
+<!-- ───────────────────────── MINDSET ───────────────────────── -->
+<h2 id="mindset"><span class="no">09</span>節目裡的思考框架</h2>
+<p>EP702 的光模組段落之外，同一集還有幾條可以直接套用在供應鏈研究的心法：</p>
+<div class="grid">
+  <div class="card"><h4>最終都回到成本</h4><p>聯發科限縮員工 AI 額度的 token maxing 兩難：理論上預算無限誰都想全開，但公司要對損益表負責。連最願意花錢的企業主都踩煞車時，供應鏈的想像「確實不能想得太快」。就像模擬城市，錢無限才能先把管線鋪到完美。<span class="tag mk">EP702</span></p></div>
+  <div class="card"><h4>區分股價雜訊與產業趨勢</h4><p>產業從年初至今維持同一趨勢；三到五月噴、七月修，就說故事是假的，是「不學無術」。SSD 股因 HDD 擴產新聞跳水，但 HDD 產能基期低；3037 被說「稀產地」後還是上了新高。<span class="tag mk">EP702</span></p></div>
+  <div class="card"><h4>直接受惠 vs. 排擠效應</h4><p>缺貨與漲價主要聚焦 AI 相關；不是押 AI，賭的就是排擠效應，那是 tier 2 以後的故事，他會比較害怕。<span class="tag mk">EP702</span></p></div>
+  <div class="card"><h4>時程永遠比口號慢</h4><p>炒股時大家會很早告訴你「很快要放量」，實際上會很久，放量時又有各種遞延。<span class="tag mk">EP702</span></p></div>
+  <div class="card"><h4>不跟大盤對作</h4><p>大盤沒轉弱就不要提早放空，等均線下彎再討論都不遲；也別只在下跌時拜空方大神。這一波他以光為主要押注、續抱。<span class="tag mk">EP702</span></p></div>
+  <div class="card"><h4>不用零和思維</h4><p>新技術出現不等於舊技術立刻死，過渡期往往比想像長，老玩家也會轉身。<span class="tag mk">EP699</span></p></div>
+</div>
+
+<!-- ───────────────────────── WATCH ───────────────────────── -->
+<h2 id="watch"><span class="no">10</span>後續觀察清單</h2>
+<p><span class="tag inf">推論</span>依上述框架，可以用來驗證或推翻這條鏈判斷的訊號：</p>
+<ol>
+  <li><b>政策是否落地</b>：美國商務部／FCC 是否發布正式條文；門檻比例、適用速率（800G／1.6T／3.2T）與生效時程。</li>
+  <li><b>DSP 漲價是否延續</b>：Marvell、MaxLinear、Broadcom 法說對價格與 lead time 的說法（EP699 建議關注）。</li>
+  <li><b>先進製程產能分配</b>：DSP 與 GPU 搶同一批 3／5 奈米產能，台積電產能與 GPU 需求變化會傳導到 DSP 供給。</li>
+  <li><b>美系去中化的實際動作</b>：美系光通廠在東南亞、台灣的產能與採購比重變化。</li>
+  <li><b>中國擴產與報價</b>：中國光通零組件擴產進度，以及非中系報價是否因政策而獲得保護。</li>
+  <li><b>CPO／LPO 放量時程</b>：交換器廠 CPO 產品的實際出貨占比，而非展示與口號。</li>
+  <li><b>上游材料</b>：InP 基板擴產、中國對銦鎵等原料的出口管制動向。</li>
+</ol>
+
+<!-- ───────────────────────── GLOSSARY ───────────────────────── -->
+<h2 id="glossary"><span class="no">11</span>名詞表</h2>
+<dl class="gl">
+  <dt>Transceiver</dt><dd>光收發模組，負責電／光雙向轉換。</dd>
+  <dt>BOM</dt><dd>Bill of Materials，物料清單；「65% BOM」指物料價值占比。</dd>
+  <dt>DSP</dt><dd>Digital Signal Processor，數位訊號處理器；在光模組中負責等化、重定時、糾錯。</dd>
+  <dt>Driver</dt><dd>雷射驅動器，將電訊號放大以驅動雷射。</dd>
+  <dt>EML</dt><dd>Electro-absorption Modulated Laser，電吸收調變雷射，高速長距常用。</dd>
+  <dt>CW Laser</dt><dd>連續波雷射，常搭配矽光子調變器使用。</dd>
+  <dt>PD</dt><dd>Photo Detector，光偵測器，將光轉為電流。</dd>
+  <dt>TIA</dt><dd>Trans-Impedance Amplifier，轉阻放大器，將 PD 的微弱電流轉為電壓並放大。</dd>
+  <dt>FA／FAU</dt><dd>Fiber Array（Unit），光纖陣列；與透鏡、隔離器共同完成光的耦合與對準。</dd>
+  <dt>PAM4</dt><dd>四階脈衝振幅調變，每符號攜帶 2 bit，是 400G 以上的主流調變。</dd>
+  <dt>DR8／FR4</dt><dd>光模組規格：DR8 為 8 路平行光纖；FR4 為 4 波長多工。</dd>
+  <dt>SerDes</dt><dd>序列器／解序列器，晶片高速 I/O 的核心 IP。</dd>
+  <dt>LPO</dt><dd>Linear Pluggable Optics，模組內不含 DSP 的線性可插拔光學。</dd>
+  <dt>CPO</dt><dd>Co-Packaged Optics，光引擎與晶片共同封裝。</dd>
+  <dt>OCS</dt><dd>Optical Circuit Switch，全光交換。</dd>
+  <dt>InP／GaAs</dt><dd>磷化銦／砷化鎵，三五族化合物半導體基板。</dd>
+</dl>
+
+<footer>
+  <p><b>Inspired by 謝孟恭《股癌》Gooaye.</b> 本文的骨幹來自 EP702〈抽不到Radiohead與光模組禁令〉中「摩根士丹利的光模組傳聞：65% 美國 BOM」段落的光模組拆解與事件評析。感謝謝孟恭持續把產業知識講得清楚易懂。</p>
+  <ul>
+    <li>EP702 原集：<a href="https://player.soundon.fm/p/954689a5-3096-43a4-a80b-7810b219cef3/episodes/42301381-6003-4b54-a28d-290a3fd2e258" rel="noopener">SoundOn</a> · <a href="https://whatmkreallysaid.com/episode.html?file=EP702" rel="noopener">逐字稿</a></li>
+    <li>EP699〈小學生棒球課與DSP漲價〉：<a href="https://whatmkreallysaid.com/episode.html?file=EP699" rel="noopener">逐字稿</a>（DSP 原理、CPO 與零和思維）</li>
+    <li>其他引用集數（EP451、EP466、EP539、EP564、EP584、EP618、EP619、EP641、EP667）取自本 repo 的 <a href="https://github.com/rightson/mkh/blob/main/catalog/族群圖鑑.md">族群圖鑑</a></li>
+    <li>股癌傳送門：<a href="https://linktr.ee/gooaye" rel="noopener">linktr.ee/gooaye</a></li>
+  </ul>
+  <p>⚠️ 聽眾自行整理的非官方二次詮釋，<b>不是</b>謝孟恭本人或《股癌》的官方產出，也<b>不是投資建議</b>。標示「補充」「推論」者為整理者加入的背景與判讀，可能有誤；節目內容以原始音檔為準，逐字稿為語音轉文字，偶有誤差。文中個股為「曾提及」，非推薦或持有。</p>
+  <p><a href="../">← 回到 謝孟恭方法論</a> · <a href="https://github.com/rightson/mkh">GitHub repo</a></p>
+</footer>
+</div>
+<button class="theme-btn" id="themeBtn" type="button" aria-label="切換深淺色">◐ 深淺色</button>
+<script>
+(function(){
+  var root=document.documentElement,btn=document.getElementById('themeBtn');
+  try{var s=localStorage.getItem('theme');if(s)root.setAttribute('data-theme',s);}catch(e){}
+  btn.addEventListener('click',function(){
+    var cur=root.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+    var nx=cur==='dark'?'light':'dark';root.setAttribute('data-theme',nx);
+    try{localStorage.setItem('theme',nx);}catch(e){}
+  });
+})();
+</script>
+</body>
+</html>
